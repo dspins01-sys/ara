@@ -9,6 +9,8 @@ function ensure_section_typography_column(): void {
     static $done=false; if($done) return; $done=true;
     try {
         $pdo=Database::pdo();
+        $table=$pdo->query("SELECT 1 FROM sqlite_master WHERE type='table' AND name='sections' LIMIT 1")->fetchColumn();
+        if (!$table) return;
         $cols=$pdo->query("PRAGMA table_info(sections)")->fetchAll();
         $has=false; foreach($cols as $c){ if((string)($c['name']??'')==='typography') { $has=true; break; } }
         if(!$has) $pdo->exec("ALTER TABLE sections ADD COLUMN typography TEXT DEFAULT '{}' ");
