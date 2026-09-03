@@ -3,14 +3,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
     container_name: ara-cms
-
     ports:
       - "8089:80"
-
     volumes:
       - ./data:/var/www/html/data
       - ./public/uploads:/var/www/html/public/uploads
-
     restart: unless-stopped

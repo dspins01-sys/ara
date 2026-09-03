@@ -18,7 +18,7 @@
 @media(prefers-reduced-motion:reduce){.hero-slider .hero-slide{transition:none!important}}
 @media(max-width:800px){.hero-grid,.hero-slider{height:280px}.hero-grid{gap:8px}}
 
-/* Back-to-top floating button: hidden until the footer scrolls into view (see back-to-top.js). */
+/* V20.9 Back-to-top floating button: appears after ~300px of scrolling. */
 .ara-back-to-top{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;border:0;background:var(--ara-accent,#1c1c1c);color:#fff;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.24);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(10px);transition:opacity .22s ease,transform .22s ease,visibility .22s;z-index:45}
 .ara-back-to-top.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
 .ara-back-to-top:hover{filter:brightness(1.1)}

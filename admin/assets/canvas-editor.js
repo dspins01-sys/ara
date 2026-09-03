@@ -220,16 +220,38 @@
       '<button type="button" class="ce-btn" id="ceHeaderTopBtn">⚙ Header</button>'+
       '<button type="button" class="ce-btn" id="ceSliderBtn">🖼 Slider</button>'+
       '<button type="button" class="ce-btn" id="ceTemplateBtn">🎨 Template</button>'+
+      '<div class="ce-more-wrap">'+
+      '<button type="button" class="ce-btn ce-more-toggle" id="ceMoreBtn" aria-expanded="false">⚙ More</button>'+
+      '<div class="ce-more-menu" id="ceMoreMenu">'+
+      '<button type="button" class="ce-btn" id="ceHeaderTopBtn">⚙ Header</button>'+
+      '<button type="button" class="ce-btn" id="ceSliderBtn">🖼 Slider</button>'+
+      '<button type="button" class="ce-btn" id="ceTemplateBtn">🎨 Template</button>'+
       '<button type="button" class="ce-btn" id="ceSettingsBtn">⚙ Site Settings</button>'+
-      '<a class="ce-btn" id="ceViewSite" href="../public/index.php" target="_blank" rel="noopener">Lihat Situs ↗</a>';
+      '<a class="ce-btn" id="ceViewSite" href="../public/index.php" target="_blank" rel="noopener">Lihat Situs ↗</a>'+
+      '</div></div>';
     document.body.insertBefore(bar,document.body.firstChild);
     statusEl=bar.querySelector('#ceStatus');
-    bar.querySelector('#ceAddTop').onclick=function(){ openBlockLibrary(null); };
+    bar.querySelector('#ceAddTop').onclick=function(){ selectBlock(null,false); openBlockLibrary(null); };
     bar.querySelector('#ceMenuBtn').onclick=function(){ openMenuModal(); };
     bar.querySelector('#ceHeaderTopBtn').onclick=function(){ if(headerModal) headerModal.classList.add('open'); };
     bar.querySelector('#ceSliderBtn').onclick=function(){ openSliderModal(); };
     bar.querySelector('#ceTemplateBtn').onclick=function(){ templateModal.classList.add('open'); };
     bar.querySelector('#ceSettingsBtn').onclick=function(){ settingsModal.classList.add('open'); };
+    var moreBtn=bar.querySelector('#ceMoreBtn'), moreMenu=bar.querySelector('#ceMoreMenu');
+    if(moreBtn && moreMenu){
+      moreBtn.onclick=function(e){
+        e.preventDefault(); e.stopPropagation();
+        var open=moreMenu.classList.toggle('open');
+        moreBtn.setAttribute('aria-expanded',open?'true':'false');
+      };
+      moreMenu.addEventListener('click',function(e){
+        if(e.target.closest('button,a')) moreMenu.classList.remove('open');
+        moreBtn.setAttribute('aria-expanded','false');
+      });
+      document.addEventListener('click',function(e){
+        if(!bar.contains(e.target)){ moreMenu.classList.remove('open'); moreBtn.setAttribute('aria-expanded','false'); }
+      });
+    }
     bar.querySelectorAll('.ce-devices button').forEach(function(b){
       b.onclick=function(){
         bar.querySelectorAll('.ce-devices button').forEach(function(x){ x.classList.remove('active'); });
@@ -670,6 +692,51 @@
     });
   }
 
+  /* ---------------- active block indicator ---------------- */
+  var ceBlockIndicator=null, ceIndicatorFrame=0;
+  function ensureBlockIndicator(){
+    if(ceBlockIndicator && ceBlockIndicator.parentNode) return ceBlockIndicator;
+    ceBlockIndicator=document.createElement('button');
+    ceBlockIndicator.type='button';
+    ceBlockIndicator.className='ce-active-block-indicator';
+    ceBlockIndicator.setAttribute('aria-label','Block aktif');
+    ceBlockIndicator.title='Block aktif';
+    ceBlockIndicator.innerHTML='<span>➜</span>';
+    ceBlockIndicator.addEventListener('click',function(e){
+      e.preventDefault(); e.stopPropagation();
+      var active=document.querySelector('[data-block-id].ce-selected');
+      if(active) active.scrollIntoView({behavior:'smooth',block:'center'});
+    });
+    document.body.appendChild(ceBlockIndicator);
+    return ceBlockIndicator;
+  }
+  function updateBlockIndicator(){
+    if(ceIndicatorFrame) cancelAnimationFrame(ceIndicatorFrame);
+    ceIndicatorFrame=requestAnimationFrame(function(){
+      ceIndicatorFrame=0;
+      var indicator=ensureBlockIndicator();
+      var active=document.querySelector('[data-block-id].ce-selected');
+      if(!active){ indicator.classList.remove('is-visible'); return; }
+      var r=active.getBoundingClientRect();
+      var h=indicator.offsetHeight||38;
+      var top=Math.round(r.top+(r.height/2)-(h/2));
+      var viewportH=window.innerHeight||document.documentElement.clientHeight||800;
+      top=Math.max(58,Math.min(viewportH-h-12,top));
+      indicator.style.top=top+'px';
+      indicator.classList.add('is-visible');
+    });
+  }
+  function selectBlock(sec,scrollIntoView){
+    document.querySelectorAll('[data-block-id].ce-selected').forEach(function(x){ x.classList.remove('ce-selected'); });
+    if(sec){
+      sec.classList.add('ce-selected');
+      if(scrollIntoView) sec.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    updateBlockIndicator();
+  }
+  window.addEventListener('scroll',updateBlockIndicator,{passive:true});
+  window.addEventListener('resize',updateBlockIndicator,{passive:true});
+
   /* ---------------- block toolbar / layout / reorder ---------------- */
   function cleanupBlockToolbars(scope){
     (scope||document).querySelectorAll('[data-block-id]').forEach(function(sec){
@@ -687,14 +754,14 @@
       buildBlockToolbar(sec);
       sec.addEventListener('click',function(e){
         if(e.target.closest('[data-cms-key],[data-cms-image],.ce-block-toolbar,.ce-href-btn')) return;
-        document.querySelectorAll('.dynamic-block.ce-selected').forEach(function(x){ x.classList.remove('ce-selected'); });
-        sec.classList.add('ce-selected');
+        selectBlock(sec,false);
       });
     });
     var heroes=document.querySelectorAll('[data-block-id][data-block-type="hero"]');
     document.body.dataset.ceHeroCount=String(heroes.length);
     if(heroes.length>1) document.body.classList.add('ce-multiple-heroes'); else document.body.classList.remove('ce-multiple-heroes');
     refreshMoveButtons();
+    updateBlockIndicator();
   }
   /* Grey out ▲ on the first block and ▼ on the last block, since dir would be a no-op there. */
   function refreshMoveButtons(){
@@ -767,12 +834,22 @@
       markSaving();
       post('duplicate',{id:parseInt(id,10)}).then(function(j){ insertBlockHtml(j.html,sec,true); markSaved(); }).catch(function(err){ markError(err.message); });
     };
-    bar.querySelector('[data-act="add"]').onclick=function(e){ e.stopPropagation(); openBlockLibrary(sec); };
+    bar.querySelector('[data-act="add"]').onclick=function(e){ e.stopPropagation(); selectBlock(sec,false); openBlockLibrary(sec); };
     bar.querySelector('[data-act="delete"]').onclick=function(e){
       e.stopPropagation();
       if(!window.confirm('Hapus block ini?')) return;
       markSaving();
-      post('delete',{id:parseInt(id,10)}).then(function(){ sec.remove(); markSaved(); refreshMoveButtons(); }).catch(function(err){ markError(err.message); });
+      var parentBeforeDelete=sec.parentNode;
+      var nextBeforeDelete=sec.nextElementSibling;
+      while(nextBeforeDelete && !nextBeforeDelete.hasAttribute('data-block-id')) nextBeforeDelete=nextBeforeDelete.nextElementSibling;
+      var prevBeforeDelete=sec.previousElementSibling;
+      while(prevBeforeDelete && !prevBeforeDelete.hasAttribute('data-block-id')) prevBeforeDelete=prevBeforeDelete.previousElementSibling;
+      post('delete',{id:parseInt(id,10)}).then(function(){
+        sec.remove();
+        var next=nextBeforeDelete && nextBeforeDelete.isConnected ? nextBeforeDelete : (prevBeforeDelete && prevBeforeDelete.isConnected ? prevBeforeDelete : null);
+        selectBlock(next,false);
+        markSaved(); refreshMoveButtons();
+      }).catch(function(err){ markError(err.message); });
     };
     bar.querySelector('[data-act="move-up"]').onclick=function(e){ e.stopPropagation(); moveBlockStep(sec,-1); };
     bar.querySelector('[data-act="move-down"]').onclick=function(e){ e.stopPropagation(); moveBlockStep(sec,1); };
@@ -790,6 +867,7 @@
       sec.classList.remove('ce-drag-ghost');
       draggedBlock=null;
       document.querySelectorAll('.ce-drop-target').forEach(function(x){x.classList.remove('ce-drop-target');});
+      updateBlockIndicator();
       persistOrder();
     });
   }
@@ -814,13 +892,16 @@
     if(idx===-1 || targetIdx<0 || targetIdx>=siblings.length) return;
     var target=siblings[targetIdx];
     if(dir<0) sec.parentNode.insertBefore(sec,target); else sec.parentNode.insertBefore(target,sec);
+    selectBlock(sec,false);
     sec.scrollIntoView({block:'nearest',behavior:'smooth'});
+    updateBlockIndicator();
     persistOrder();
   }
   function persistOrder(){
     var ids=Array.prototype.map.call(document.querySelectorAll('[data-block-id]'),function(x){ return x.dataset.blockId; });
     markSaving();
     refreshMoveButtons();
+    updateBlockIndicator();
     post('reorder',{order:ids}).then(markSaved).catch(function(err){ markError(err.message); });
   }
 
@@ -867,9 +948,7 @@
     }
     bindAll(node);
     if(selectNew){
-      document.querySelectorAll('.dynamic-block.ce-selected').forEach(function(x){ x.classList.remove('ce-selected'); });
-      node.classList.add('ce-selected');
-      node.scrollIntoView({behavior:'smooth',block:'center'});
+      selectBlock(node,true);
     }
     refreshMoveButtons();
     return node;

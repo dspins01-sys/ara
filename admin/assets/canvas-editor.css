@@ -15,6 +15,9 @@
 .ce-devices{display:flex;background:#151d34;border:1px solid #2e3a5c;border-radius:8px;padding:2px;gap:2px}
 .ce-devices button{border:0;background:transparent;color:#8ea0c9;padding:6px 9px;font-size:11px;border-radius:6px;cursor:pointer}
 .ce-devices button.active{background:#2c3a5e;color:#fff}
+.ce-more-wrap{display:contents}
+.ce-more-toggle{display:none}
+.ce-more-menu{display:contents}
 
 /* ---- editable text ---- */
 .ara-edit-mode [data-cms-key]{outline:1px dashed transparent;outline-offset:3px;border-radius:3px;cursor:text;transition:outline-color .12s,background-color .12s}
@@ -73,6 +76,11 @@ body.ce-resizing-logo,body.ce-resizing-logo *{cursor:nwse-resize!important}
 .ce-block-toolbar input[type=color]{width:26px;height:26px;padding:2px;border:0;border-radius:6px;background:#1c2542;cursor:pointer}
 .ce-block-toolbar .ce-sep{width:1px;height:20px;background:#2e3a5c;margin:0 2px}
 .ce-drag-ghost{opacity:.35}
+/* V20.9: active block marker follows the selected block vertically. */
+.ce-active-block-indicator{position:fixed;right:10px;top:58px;width:38px;height:38px;border:1px solid #394867;border-radius:50%;background:#11182a;color:#fff;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;visibility:hidden;pointer-events:none;transform:translateX(8px);transition:opacity .16s ease,transform .16s ease,visibility .16s;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:10001;font:700 17px/1 system-ui,sans-serif}
+.ce-active-block-indicator.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(0);cursor:pointer}
+.ce-active-block-indicator:hover{background:#2a3660}
+@media(max-width:700px){.ce-active-block-indicator{right:5px;width:32px;height:32px;font-size:15px}}
 .ara-edit-mode .dynamic-block.ce-drop-target{outline:2px dashed var(--ce-accent);outline-offset:-4px}
 
 /* add-block gap button between blocks */
@@ -182,7 +190,42 @@ body.ce-resizing-logo,body.ce-resizing-logo *{cursor:nwse-resize!important}
 body.ce-has-preview-bar{padding-bottom:64px}
 @media(max-width:640px){.ce-preview-bar{flex-wrap:wrap;bottom:10px}.ce-preview-bar-text{flex:1 1 100%}}
 @media(max-width:700px){.ce-template-grid{grid-template-columns:1fr}.ce-menu-row{flex-wrap:wrap}.ce-menu-row .ce-menu-label,.ce-menu-row .ce-menu-url{flex-basis:100%}}
-@media(max-width:800px){.ce-topbar{flex-wrap:wrap;height:auto;padding:8px 10px}.ara-edit-mode{padding-top:88px}.ara-edit-mode .ara-header{top:88px}.ce-block-toolbar{top:88px}.ce-media-grid{grid-template-columns:repeat(3,1fr)}.ce-library-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){
+  .ce-topbar{
+    height:auto;min-height:116px;padding:8px 10px;gap:7px;
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:30px 36px 36px;
+    align-content:start;box-sizing:border-box;
+  }
+  .ce-topbar .ce-logo{grid-column:1/3;grid-row:1;align-self:center;margin:0;font-size:13px;overflow:hidden;text-overflow:ellipsis}
+  .ce-topbar .ce-status{grid-column:3;grid-row:1;align-self:center;margin:0;max-width:150px;overflow:hidden;text-overflow:ellipsis;font-size:10px;text-align:right}
+  .ce-topbar .ce-devices{grid-column:1/-1;grid-row:2;justify-self:start;height:32px;box-sizing:border-box}
+  .ce-devices button{padding:6px 10px;font-size:11px}
+  .ce-topbar > #ceAddTop,.ce-topbar > #ceMenuBtn{grid-row:3;height:34px}
+  .ce-topbar > #ceAddTop{grid-column:1}
+  .ce-topbar > #ceMenuBtn{grid-column:2}
+  .ce-more-wrap{display:block;grid-column:3;grid-row:3;position:relative;justify-self:end;z-index:10003}
+  .ce-more-toggle{display:inline-flex;height:34px;padding:7px 10px}
+  .ce-more-menu{display:none;position:absolute;right:0;top:40px;width:min(220px,calc(100vw - 20px));padding:8px;background:#0d1425;border:1px solid #2e3a5c;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.35);box-sizing:border-box}
+  .ce-more-menu.open{display:grid;gap:6px}
+  .ce-more-menu .ce-btn{width:100%;justify-content:flex-start;box-sizing:border-box}
+  .ara-edit-mode{padding-top:124px}
+  .ara-edit-mode .ara-header{top:124px}
+  .ce-block-toolbar{top:132px}
+  .ce-media-grid{grid-template-columns:repeat(3,1fr)}
+  .ce-library-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:420px){
+  .ce-topbar{grid-template-columns:repeat(3,minmax(0,1fr));min-height:112px;grid-template-rows:28px 34px 34px;padding:7px 8px;gap:6px}
+  .ce-topbar .ce-logo{font-size:12px}
+  .ce-topbar .ce-status{max-width:128px;font-size:9.5px}
+  .ce-devices button{padding:5px 8px;font-size:10.5px}
+  .ce-topbar > #ceAddTop,.ce-topbar > #ceMenuBtn,.ce-more-toggle{height:32px;padding:6px 9px;font-size:11px}
+  .ce-more-menu{top:38px}
+  .ara-edit-mode{padding-top:118px}
+  .ara-edit-mode .ara-header{top:118px}
+  .ce-block-toolbar{top:126px}
+}
+
 
 /* ---- fake "Mobile" device preview ----
    The real @media(max-width:…) breakpoints in site.css/theme-*.css only

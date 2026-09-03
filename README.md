@@ -19,3 +19,13 @@ See `README-CPANEL.md` for cPanel/XAMPP deployment notes.
 
 ## Repository hygiene
 The repository contains source code, templates, and static demo assets only. Runtime SQLite data and uploaded media are intentionally excluded from Git.
+
+## Docker development
+
+Requires Docker Engine + Docker Compose. The included image uses PHP 8.3 + Apache + PDO SQLite.
+
+```bash
+docker compose up -d --build
+```
+
+Open `http://localhost:8089/`. On a fresh checkout, the entrypoint automatically prepares writable runtime directories for SQLite and uploads.
