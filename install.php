@@ -1,0 +1,7 @@
+<?php
+require_once __DIR__.'/app/Database.php';
+require_once __DIR__.'/app/Security.php';
+$pdo=Database::pdo(); $schema=file_get_contents(__DIR__.'/database/schema.sql'); $pdo->exec($schema);
+$adminExists=(int)$pdo->query('SELECT COUNT(*) FROM admins')->fetchColumn(); $msg='';
+if($_SERVER['REQUEST_METHOD']==='POST'){ $u=trim($_POST['username']??'');$p=$_POST['password']??''; if(strlen($u)<3||strlen($p)<8){$msg='Username minimal 3 karakter dan password minimal 8 karakter.';} else {$st=$pdo->prepare('INSERT INTO admins(username,password_hash) VALUES(?,?)');$st->execute([$u,password_hash($p,PASSWORD_DEFAULT)]);$msg='Instalasi selesai. Hapus install.php lalu login ke /admin/login.php';$adminExists=1;}}
+?><!doctype html><html><head><meta charset="utf-8"><title>Install CMS</title><style>body{font-family:system-ui;background:#0b1020;color:#fff;display:grid;place-items:center;min-height:100vh}.box{width:min(460px,92vw);padding:32px;background:#151d34;border:1px solid #293452;border-radius:18px}input,button{width:100%;padding:13px;margin:7px 0;border-radius:10px;border:1px solid #34415f;background:#0d1427;color:#fff}button{background:#7c5cff;border:0;font-weight:700}</style></head><body><div class="box"><h1>CMS Installer</h1><?php if($msg):?><p><?=$msg?></p><?php endif;?><?php if(!$adminExists):?><form method="post"><input name="username" placeholder="Admin username" required><input type="password" name="password" placeholder="Password" required><button>Install CMS</button></form><?php else:?><p>Admin sudah dibuat.</p><?php endif;?></div></body></html>

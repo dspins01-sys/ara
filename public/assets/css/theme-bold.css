@@ -1,0 +1,82 @@
+/* ================= BOLD THEME =================
+   Struktural: header transparan absolute mengambang di atas hero,
+   tiap feature block berubah jadi "poster" full-bleed (gambar jadi
+   background section pakai position:absolute + gradient overlay,
+   bukan grid dua kolom), plus garis potong diagonal antar section. */
+
+body.theme-bold .ara-header{position:absolute;left:0;right:0;top:0;background:transparent;border-bottom:0;z-index:30}
+body.theme-bold .ara-header nav a{color:#fff}
+body.theme-bold .ara-header nav a:first-child{text-decoration-color:var(--ara-accent,#ff6a2c)}
+body.theme-bold .ara-brand{color:#fff}
+
+body.theme-bold:not(.hero-layout-overlay) .ara-hero{padding-top:150px;background:#05070c;position:relative}
+body.theme-bold.hero-layout-overlay .ara-hero{background:#05070c}
+body.theme-bold .hero-heading{position:relative}
+body.theme-bold .hero-heading h1{color:#fff;font-weight:900;letter-spacing:-.04em;position:relative;z-index:1}
+body.theme-bold .hero-heading p{color:#aab2c4}
+body.theme-bold .hero-btn,body.theme-bold .block-btn{background:var(--ara-accent,#ff6a2c);color:#0b0b0f;border-radius:0;font-weight:800}
+body.theme-bold .hero-btn:hover,body.theme-bold .block-btn:hover{background:var(--ara-accent,#ff7f47);opacity:.86}
+body.theme-bold .eyebrow{color:var(--ara-accent,#ff6a2c);font-weight:800}
+body.theme-bold .hero-image-wrap>img,body.theme-bold .hero-thumb,body.theme-bold .feature-image img,body.theme-bold .gallery-grid img,body.theme-bold .hero-grid img,body.theme-bold .hero-slider{border-radius:0}
+body.theme-bold .hero-thumb{border-color:#05070c}
+
+/* feature / image-text blocks: image becomes a full-bleed absolute background "poster",
+   copy sits on top with a dark gradient underneath — real layout change, not just color */
+body.theme-bold .dynamic-block.block-feature:has(.feature-image),
+body.theme-bold .dynamic-block.block-image-text:has(.feature-image){
+  position:relative;min-height:540px;display:flex;align-items:flex-end;padding:0;
+  clip-path:polygon(0 26px,100% 0,100% 100%,0 100%);
+}
+body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-inner,
+body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-inner{
+  display:block;max-width:100%;padding:56px 60px 68px;position:relative;z-index:2;
+}
+body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-copy,
+body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-copy{max-width:640px;position:relative;z-index:2}
+body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-image,
+body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-image{
+  position:absolute;inset:0;margin:0;z-index:0;
+}
+body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-image img,
+body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-image img{
+  width:100%;height:100%;object-fit:cover;border-radius:0;
+}
+body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-image::after,
+body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-image::after{
+  content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,7,12,.94),rgba(5,7,12,.1) 60%);
+}
+body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-copy h2,
+body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-copy h2{color:#fff;font-weight:900}
+body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-copy p,
+body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-copy p{color:#dfe2ea}
+
+body.theme-bold .ara-about{background:#0e1320;color:#fff}
+body.theme-bold .about-inner p{color:#c3c9d6}
+body.theme-bold .ara-feature{background:#0b0e16;color:#fff}
+body.theme-bold .feature-copy h2{color:#fff;font-weight:900;letter-spacing:-.03em}
+body.theme-bold .feature-copy p{color:#c3c9d6}
+body.theme-bold .dynamic-block.block-about{background:#0e1320}
+body.theme-bold .dynamic-block.block-quote{background:#12182a;color:#fff;clip-path:polygon(0 20px,100% 0,100% 100%,0 calc(100% - 20px))}
+body.theme-bold .quote-mark{color:var(--ara-accent,#ff6a2c);font-size:120px}
+body.theme-bold .ara-contact,body.theme-bold .dynamic-block.block-cta{background:var(--ara-accent,#ff6a2c);color:#0b0b0f}
+body.theme-bold .ara-contact .eyebrow.light,body.theme-bold .contact-copy,body.theme-bold .dynamic-block.block-cta .eyebrow,body.theme-bold .dynamic-block.block-cta .feature-copy p{color:#3a1d0d}
+body.theme-bold .ara-contact input,body.theme-bold .ara-contact textarea{color:#0b0b0f;border-bottom-color:rgba(11,11,15,.4)}
+body.theme-bold .ara-contact input::placeholder,body.theme-bold .ara-contact textarea::placeholder{color:rgba(11,11,15,.55)}
+body.theme-bold .contact-inner button,body.theme-bold .cta-button-wrap .block-btn{background:#0b0b0f;color:var(--ara-accent,#ff6a2c);border-radius:0}
+body.theme-bold .ara-footer{background:#05070c}
+
+@media(max-width:800px){
+  body.theme-bold .ara-header{position:sticky;background:#05070c}
+  body.theme-bold:not(.hero-layout-overlay) .ara-hero{padding-top:56px}
+  body.theme-bold .dynamic-block.block-feature:has(.feature-image),
+  body.theme-bold .dynamic-block.block-image-text:has(.feature-image){
+    min-height:0;display:block;clip-path:none;padding:0;
+  }
+  body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-image,
+  body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-image{position:static;height:240px}
+  body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-inner,
+  body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-inner{padding:28px 20px}
+  body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-image::after,
+  body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-image::after{display:none}
+  body.theme-bold .dynamic-block.block-quote{clip-path:none}
+}

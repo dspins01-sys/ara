@@ -1,0 +1,22 @@
+# Ara CMS runtime data
+data/*.sqlite
+data/*.db
+data/.installed
+public/uploads/*
+!public/uploads/.htaccess
+
+# Secrets / local config
+.env
+.env.*
+!.env.example
+config/config.local.php
+
+# Runtime
+cache/
+logs/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

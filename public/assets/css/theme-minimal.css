@@ -1,0 +1,49 @@
+/* ================= MINIMAL THEME =================
+   Struktural: header jadi pill mengambang, hero jadi "kartu" putih
+   yang overlap ke section berikutnya (pakai negative margin + transform),
+   dan setiap block dibungkus jadi kartu rounded dengan shadow — bukan cuma ganti warna. */
+
+body.theme-minimal .ara-header{background:rgba(255,255,255,.86);backdrop-filter:blur(10px);color:#12151c;border-bottom:0;box-shadow:0 1px 0 rgba(11,46,107,.06)}
+body.theme-minimal .ara-brand{color:#12151c}
+body.theme-minimal .ara-header nav{background:#fff;padding:9px 20px;border-radius:999px;box-shadow:0 6px 18px rgba(11,46,107,.1)}
+body.theme-minimal .ara-header nav a{color:#3a3f4b}
+body.theme-minimal .ara-header nav a:first-child{text-decoration:none;color:var(--ara-accent,#2f6bff);font-weight:700}
+
+/* hero becomes a floating white card that overlaps the next section */
+body.theme-minimal .ara-hero{background:#eef3ff;padding-bottom:130px}
+body.theme-minimal:not(.hero-layout-overlay) .hero-inner{background:#fff;border-radius:28px;box-shadow:0 34px 70px rgba(11,46,107,.14);padding:56px 56px 0;position:relative;z-index:2;margin-bottom:-90px}
+body.theme-minimal:not(.hero-layout-overlay) .hero-image-wrap{transform:translateY(46px);border-radius:22px;overflow:hidden}
+body.theme-minimal .hero-heading h1{color:#0b2e6b}
+body.theme-minimal .hero-heading p{color:#4b5768}
+body.theme-minimal .hero-image-wrap>img,body.theme-minimal .hero-thumb,body.theme-minimal .feature-image img,body.theme-minimal .gallery-grid img,body.theme-minimal .hero-grid img,body.theme-minimal .hero-slider{border-radius:20px}
+body.theme-minimal .hero-thumb{border-color:#fff;box-shadow:0 14px 28px rgba(11,46,107,.2)}
+body.theme-minimal .hero-btn,body.theme-minimal .block-btn{background:var(--ara-accent,#2f6bff);border-radius:999px}
+body.theme-minimal .hero-btn:hover,body.theme-minimal .block-btn:hover{background:var(--ara-accent,#1d54e0);opacity:.88}
+body.theme-minimal .eyebrow{color:var(--ara-accent,#2f6bff)}
+body.theme-minimal .eyebrow.light{color:#a9c2ff}
+
+/* every feature block becomes a standalone rounded card, alternating tint */
+body.theme-minimal .ara-feature{padding:36px 40px}
+body.theme-minimal .dynamic-block .feature-inner{background:#fff;border-radius:26px;box-shadow:0 18px 46px rgba(11,46,107,.09);padding:52px}
+body.theme-minimal .dynamic-block:nth-of-type(even) .feature-inner{background:#f5f8fd}
+body.theme-minimal .about-inner h2,body.theme-minimal .feature-copy h2{color:#12151c}
+body.theme-minimal .ara-about{background:#f5f8fd}
+
+body.theme-minimal .ara-contact{background:#0b2e6b}
+body.theme-minimal .contact-inner{background:rgba(255,255,255,.06);border-radius:26px;padding:46px}
+body.theme-minimal .ara-contact input,body.theme-minimal .ara-contact textarea{border-bottom-color:#3f5c9c}
+body.theme-minimal .contact-inner button{background:#fff;color:#0b2e6b;border-radius:999px}
+
+body.theme-minimal .dynamic-block.block-quote .quote-inner{background:#eef3ff;border-radius:26px;padding:50px}
+body.theme-minimal .quote-mark{color:#a9c2ff}
+body.theme-minimal .dynamic-block.block-cta .feature-inner{background:#0b2e6b;color:#fff;border-radius:26px}
+body.theme-minimal .dynamic-block.block-cta .eyebrow,body.theme-minimal .dynamic-block.block-cta .feature-copy p{color:#a9c2ff}
+body.theme-minimal .cta-button-wrap .block-btn{background:#fff;color:#0b2e6b}
+body.theme-minimal .ara-footer{background:#0b2e6b}
+
+@media(max-width:800px){
+  body.theme-minimal .hero-inner{border-radius:20px;padding:32px 28px 0;margin-bottom:0}
+  body.theme-minimal .hero-image-wrap{transform:none}
+  body.theme-minimal .ara-hero{padding-bottom:52px}
+  body.theme-minimal .dynamic-block .feature-inner{padding:32px;border-radius:20px}
+}

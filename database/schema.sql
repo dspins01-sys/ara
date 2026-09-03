@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS admins(id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT UNIQUE NOT NULL,password_hash TEXT NOT NULL,created_at TEXT DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS settings(key TEXT PRIMARY KEY,value TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS sections(id INTEGER PRIMARY KEY AUTOINCREMENT,section_key TEXT UNIQUE NOT NULL,anchor_id TEXT DEFAULT '',title TEXT,subtitle TEXT,body TEXT,image TEXT,sort_order INTEGER DEFAULT 0,is_active INTEGER DEFAULT 1,layout TEXT DEFAULT "image-right",block_type TEXT DEFAULT "feature",typography TEXT DEFAULT "{}");
+CREATE TABLE IF NOT EXISTS smtp_settings(key TEXT PRIMARY KEY,value TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS messages(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL,email TEXT NOT NULL,message TEXT NOT NULL,created_at TEXT DEFAULT CURRENT_TIMESTAMP,is_read INTEGER DEFAULT 0);
+CREATE TABLE IF NOT EXISTS revisions(id INTEGER PRIMARY KEY AUTOINCREMENT,label TEXT NOT NULL,snapshot TEXT NOT NULL,created_at TEXT DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS persistence_log(id INTEGER PRIMARY KEY AUTOINCREMENT,section_id INTEGER,field TEXT,value_hash TEXT,request_uri TEXT,created_at TEXT DEFAULT CURRENT_TIMESTAMP);
+INSERT OR IGNORE INTO settings(key,value) VALUES
+('site_name','Ara Digitalent'),('hero_title','Transform Your Business With Digital Excellence'),('hero_text','Solusi digital, teknologi, dan talent untuk membantu bisnis tumbuh lebih cepat.'),('hero_button','Mulai Konsultasi'),('hero_image',''),('about_title','Partner Digital Untuk Pertumbuhan Bisnis'),('about_text','Kami membantu bisnis membangun fondasi digital yang kuat melalui strategi, teknologi, dan talenta terbaik.'),('contact_title','Mari Bangun Sesuatu Yang Hebat'),('contact_text','Ceritakan kebutuhan bisnis Anda dan tim kami akan menghubungi Anda.'),('footer_text','© 2026 Ara Digitalent. All rights reserved.'),('hero_section_migrated','0'),('hero_deleted','0'),('hero_visible','1');
+INSERT OR IGNORE INTO sections(section_key,title,subtitle,body,sort_order) VALUES
+('services','Our Services','Apa yang bisa kami bantu?','Digital strategy, web development, automation, dan solusi teknologi yang disesuaikan dengan kebutuhan bisnis.',1),
+('cta','Ready To Grow?','Let’s work together','Hubungi kami untuk membahas project dan kebutuhan digital bisnis Anda.',2);
+INSERT OR IGNORE INTO settings(key,value) VALUES
+('contractor_kicker','DAN JANGAN LUPA'),('contractor_title','Kontraktor Profesional'),('contractor_text','Kami adalah kontraktor profesional yang siap membantu Anda dalam pelaksanaan proyek konstruksi. Dengan tim yang terampil dan berpengalaman, kami menjamin kualitas dan kepuasan pelanggan. Percayakan proyek konstruksi Anda kepada kami dan rasakan hasil yang memuaskan.'),('contractor_image',''),
+('digital_kicker','PERTAMA-TAMA'),('digital_title','Solusi Digital untuk Bisnis Anda'),('digital_text','Kami adalah PT Ara DigiTalent, perusahaan yang menyediakan solusi digital untuk bisnis Anda. Dengan pengalaman dan keahlian kami, kami siap membantu Anda dalam mengembangkan bisnis Anda melalui konsultasi, kontraktor, serta pengadaan barang dan jasa. Dapatkan solusi terbaik untuk kebutuhan digital Anda bersama kami.'),('digital_image',''),
+('consulting_kicker','BELUM LAGI'),('consulting_title','Layanan Konsultasi'),('consulting_text','Kami menyediakan layanan konsultasi yang inovatif dan terpercaya untuk membantu bisnis Anda mencapai kesuksesan. Dengan pengalaman dan pengetahuan yang luas, tim kami siap memberikan solusi terbaik untuk meningkatkan kinerja dan efisiensi bisnis Anda.'),('consulting_image',''),
+('contact_button','Kirim'),('typography','{}'),('template_css',''),('template_name',''),('template_library','[]');
+-- V6 block-builder columns (fresh installs)
+-- Existing databases are migrated automatically by app/Content.php.

@@ -1,0 +1,371 @@
+/* Ara CMS — visual canvas editor overlay styles */
+.ara-edit-mode{--ce-accent:#7b5cff;--ce-dark:#11182a;--ce-line:#25304a;padding-top:52px}
+.ara-edit-mode .ara-header{top:52px}
+
+/* ---- top bar ---- */
+.ce-topbar{position:fixed;top:0;left:0;right:0;height:52px;background:#0b1020;border-bottom:1px solid #232d47;display:flex;align-items:center;gap:10px;padding:0 14px;z-index:9999;font:13px/1.3 system-ui,sans-serif;color:#eef2ff}
+.ce-topbar .ce-logo{font-weight:800;letter-spacing:.02em;margin-right:6px;white-space:nowrap}
+.ce-topbar .ce-status{color:#8ea0c9;font-size:11.5px;margin-right:auto;white-space:nowrap}
+.ce-topbar .ce-status.saving{color:#e0bf71}
+.ce-topbar .ce-status.error{color:#ff9393}
+.ce-btn{background:#1a2340;border:1px solid #2e3a5c;color:#e7ecff;padding:8px 12px;border-radius:8px;font:600 12px/1 system-ui,sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ce-btn:hover{background:#232f52}
+.ce-btn.ce-primary{background:var(--ce-accent);border-color:var(--ce-accent)}
+.ce-btn.ce-primary:hover{filter:brightness(1.08)}
+.ce-devices{display:flex;background:#151d34;border:1px solid #2e3a5c;border-radius:8px;padding:2px;gap:2px}
+.ce-devices button{border:0;background:transparent;color:#8ea0c9;padding:6px 9px;font-size:11px;border-radius:6px;cursor:pointer}
+.ce-devices button.active{background:#2c3a5e;color:#fff}
+
+/* ---- editable text ---- */
+.ara-edit-mode [data-cms-key]{outline:1px dashed transparent;outline-offset:3px;border-radius:3px;cursor:text;transition:outline-color .12s,background-color .12s}
+.ara-edit-mode [data-cms-key]:hover{outline-color:rgba(123,92,255,.55)}
+.ara-edit-mode [data-cms-key]:focus{outline:2px solid var(--ce-accent);background:rgba(123,92,255,.06)}
+.ara-edit-mode a[data-cms-key]{cursor:pointer}
+
+/* ---- editable images ---- */
+.ara-edit-mode .cms-img{cursor:pointer}
+.ce-img-wrap{position:relative;display:block}
+.ce-img-edit{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,14,26,0);opacity:0;transition:.12s;cursor:pointer}
+.ce-img-edit:hover{opacity:1;background:rgba(10,14,26,.42)}
+.ce-img-edit span{background:#fff;color:#161a20;font:700 11px/1 system-ui,sans-serif;padding:8px 12px;border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+
+
+
+/* ---- global editable areas ---- */
+.ara-edit-mode .ce-global-toolbar{position:absolute;top:75px;left:8px;z-index:45;display:flex;align-items:center;gap:7px;background:#11182a;color:#eef2ff;border:1px solid #2e3a5c;border-radius:9px;padding:6px 8px;box-shadow:0 6px 18px rgba(0,0,0,.24);font:600 11px/1 system-ui,sans-serif}
+.ara-edit-mode .ce-global-toolbar b{color:#9eabca;text-transform:uppercase;letter-spacing:.06em}
+.ara-edit-mode .ce-global-toolbar button{border:0;background:#1c2542;color:#dbe2f7;border-radius:6px;padding:6px 9px;font:600 11px/1 system-ui,sans-serif;cursor:pointer}
+.ara-edit-mode .ce-global-toolbar button:hover{background:#2a3660;color:#fff}
+.ara-edit-mode .ce-global-hidden-area{min-height:86px;border:2px dashed rgba(123,92,255,.55);background:repeating-linear-gradient(-45deg,rgba(123,92,255,.06),rgba(123,92,255,.06) 10px,rgba(123,92,255,.02) 10px,rgba(123,92,255,.02) 20px)}
+.ara-edit-mode .ce-global-hidden-area:after{content:'Hero disembunyikan dari Live Site';display:flex;align-items:center;justify-content:center;min-height:82px;color:#7f8fb2;font:600 12px/1 system-ui,sans-serif;letter-spacing:.03em}
+
+/* ---- editable header logo ---- */
+.ara-edit-mode .ara-brand-logo-slot{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:42px;border:1px dashed rgba(123,92,255,.55);border-radius:7px;padding:2px;background:rgba(123,92,255,.05)}
+.ara-edit-mode .ara-brand-logo-slot.is-placeholder{cursor:pointer}
+.ara-edit-mode .ara-brand-logo{object-fit:contain;cursor:pointer}
+.ara-edit-mode .ce-logo-resize{display:inline-flex;align-items:flex-end;justify-content:flex-end;width:14px;height:18px;margin-left:-8px;margin-right:2px;margin-top:28px;color:#7b5cff;background:#11182a;border:1px solid #394867;border-radius:4px;font-size:11px;line-height:12px;cursor:nwse-resize;z-index:5;user-select:none}
+.ara-edit-mode .ce-logo-actions{display:inline-flex;align-items:center;gap:4px;margin-left:-8px;position:relative;z-index:6}
+.ara-edit-mode .ce-logo-actions .ce-logo-resize{margin:28px 0 0 0}
+.ara-edit-mode .ce-logo-delete{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-top:28px;border:1px solid #6b3340;border-radius:5px;background:#351925;color:#ffb3bd;font:700 11px/1 system-ui,sans-serif;cursor:pointer;padding:0}
+.ara-edit-mode .ce-logo-delete:hover{background:#5a2230;color:#fff}
+.ara-edit-mode .ce-logo-resize:hover{background:#2a3660;color:#fff}
+.ara-edit-mode .ara-brand-wrap{position:relative}
+body.ce-resizing-logo,body.ce-resizing-logo *{cursor:nwse-resize!important}
+
+/* ---- block hover / selection ---- */
+.ara-edit-mode .dynamic-block,.ara-edit-mode .ara-hero{position:relative}
+.ara-edit-mode .dynamic-block:hover,.ara-edit-mode .dynamic-block.ce-selected{box-shadow:inset 0 0 0 2px rgba(123,92,255,.5)}
+.dynamic-block.cms-hidden-block{opacity:.4}
+.ce-hidden-badge{position:absolute;top:10px;left:10px;background:#3a2340;color:#f0c6ff;font:700 10px/1 system-ui,sans-serif;padding:5px 9px;border-radius:999px;z-index:5;letter-spacing:.05em}
+
+/* per-block floating toolbar (sticky at top of the block) */
+.ce-block-toolbar{position:sticky;top:122px;z-index:40;display:none;align-items:center;gap:6px;background:#11182a;border:1px solid #2e3a5c;border-radius:10px;padding:6px 7px;margin:8px auto 0;width:max-content;max-width:calc(100% - 20px);box-shadow:0 6px 18px rgba(0,0,0,.28);font:12px/1 system-ui,sans-serif}
+.ara-edit-mode .dynamic-block:hover .ce-block-toolbar,.ara-edit-mode .dynamic-block.ce-selected .ce-block-toolbar{display:flex}
+.ce-block-toolbar .ce-drag{cursor:grab;color:#8ea0c9;font-size:15px;padding:2px 4px}
+.ce-block-toolbar [data-act="move-up"],.ce-block-toolbar [data-act="move-down"]{font-size:11px}
+.ce-block-toolbar button:disabled{opacity:.32;cursor:not-allowed}
+.ce-block-toolbar button:disabled:hover{background:#1c2542}
+.ce-block-toolbar .ce-tag{color:#8ea0c9;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;padding:0 4px;white-space:nowrap}
+.ce-block-toolbar button{border:0;background:#1c2542;color:#dbe2f7;width:28px;height:28px;border-radius:7px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+.ce-block-toolbar button:hover{background:#2a3660}
+.ce-block-toolbar button.active{background:var(--ce-accent);color:#fff}
+.ce-block-toolbar button.ce-danger:hover{background:#5a2c39;color:#ffb4c2}
+.ce-block-toolbar input[type=color]{width:26px;height:26px;padding:2px;border:0;border-radius:6px;background:#1c2542;cursor:pointer}
+.ce-block-toolbar .ce-sep{width:1px;height:20px;background:#2e3a5c;margin:0 2px}
+.ce-drag-ghost{opacity:.35}
+.ara-edit-mode .dynamic-block.ce-drop-target{outline:2px dashed var(--ce-accent);outline-offset:-4px}
+
+/* add-block gap button between blocks */
+.ce-add-gap{display:flex;align-items:center;justify-content:center;height:0;position:relative;z-index:15}
+.ce-add-gap button{opacity:0;transition:opacity .12s;background:var(--ce-accent);color:#fff;border:0;width:26px;height:26px;border-radius:50%;font-size:16px;line-height:1;cursor:pointer;position:relative;top:-13px;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.ce-add-gap:hover button{opacity:1}
+
+/* ---- rich text formatting toolbar (shown when editing a paragraph/body field) ---- */
+.ce-rich-toolbar{display:none;position:fixed;z-index:10002;align-items:center;gap:4px;background:#11182a;border:1px solid #2e3a5c;border-radius:10px;padding:6px 7px;box-shadow:0 8px 22px rgba(0,0,0,.32);font:12px/1 system-ui,sans-serif}
+.ce-rich-toolbar.open{display:flex}
+.ce-rich-toolbar button{border:0;background:#1c2542;color:#dbe2f7;min-width:28px;height:28px;padding:0 8px;border-radius:7px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+.ce-rich-toolbar button:hover{background:#2a3660}
+.ce-rich-toolbar select{background:#1c2542;color:#dbe2f7;border:0;height:28px;border-radius:7px;font:12px/1 system-ui,sans-serif;padding:0 4px;cursor:pointer}
+.ce-rich-toolbar input[type=color]{width:26px;height:26px;padding:2px;border:0;border-radius:6px;background:#1c2542;cursor:pointer}
+.ce-rich-toolbar .ce-sep{width:1px;height:20px;background:#2e3a5c;margin:0 2px}
+
+/* ---- modals ---- */
+.ce-modal{display:none;position:fixed;inset:0;background:rgba(6,9,18,.7);z-index:10000;align-items:center;justify-content:center;padding:24px;font:13px/1.4 system-ui,sans-serif}
+.ce-modal.open{display:flex}
+/* V20.6.1: nested Media Library must sit above Slider Manager. */
+#ceMediaGrid{}
+.ce-modal:has(.ce-slider-modal-box){z-index:10000}
+.ce-modal-box{width:min(880px,100%);max-height:86vh;overflow:auto;background:#11182a;border:1px solid #2c3954;border-radius:16px;padding:20px;color:#eef2ff}
+.ce-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.ce-modal-head h3{margin:0;font-size:16px}
+.ce-modal-close{border:0;background:#1c2542;color:#cfd7ee;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px}
+.ce-field{margin-bottom:13px}
+.ce-field label{display:block;color:#9aa7c1;font-size:11.5px;margin-bottom:6px}
+.ce-field input,.ce-field textarea{width:100%;background:#0a1020;color:#f3f6ff;border:1px solid #30405f;border-radius:9px;padding:10px 11px;outline:none;font:inherit;box-sizing:border-box}
+.ce-media-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:10px}
+.ce-media-item{border:1px solid #293651;border-radius:10px;overflow:hidden;background:#0a1020;cursor:pointer}
+.ce-media-item img{width:100%;aspect-ratio:1.3;object-fit:cover;display:block}
+.ce-dropzone{margin:12px 0;padding:20px;border:1px dashed #52617e;border-radius:12px;text-align:center;color:#aeb9cd}
+.ce-dropzone label{color:#b9a6ff;cursor:pointer}
+.ce-dropzone input{display:none}
+.ce-dropzone.drag-over{border-color:#8066ff;background:rgba(123,92,255,.08)}
+.ce-href-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-left:6px;border:0;border-radius:6px;background:rgba(123,92,255,.18);color:#7b5cff;font-size:11px;cursor:pointer;vertical-align:middle}
+.ce-href-btn:hover{background:rgba(123,92,255,.32)}
+.ce-library-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.ce-library-item{background:#0b1120;border:1px solid #293651;border-radius:12px;color:#eef2fb;text-align:left;padding:14px;cursor:pointer}
+.ce-library-item:hover{border-color:#6e5bd6}
+.ce-library-item b{display:block;font-size:13px;margin-bottom:3px}
+.ce-library-item small{color:#78849c}
+
+.ce-btn.ce-danger-outline{background:transparent;border-color:#5a2c39;color:#ff9daf}
+.ce-btn.ce-danger-outline:hover{background:#3a2029}
+
+/* empty button ghost state (edit mode only) */
+.ara-edit-mode .block-btn:empty,.ara-edit-mode .hero-btn:empty{background:transparent!important;border:1.5px dashed rgba(123,92,255,.65);color:#7b5cff!important;min-width:120px;min-height:16px;display:inline-block}
+.ara-edit-mode .block-btn:empty::before,.ara-edit-mode .hero-btn:empty::before{content:'+ Tambah teks tombol';font-size:12px;font-weight:700;white-space:nowrap}
+.ara-edit-mode .dynamic-block.block-cta .block-btn:empty{border-color:rgba(255,255,255,.65);color:#fff!important}
+
+/* href popover */
+.ce-href-pop{display:none;position:absolute;z-index:10001;background:#151d34;border:1px solid #2e3a5c;border-radius:10px;padding:10px;box-shadow:0 10px 26px rgba(0,0,0,.35);width:250px;font:12px/1.3 system-ui,sans-serif}
+.ce-href-pop.open{display:block}
+.ce-href-pop input{width:100%;box-sizing:border-box;background:#0a1020;color:#f3f6ff;border:1px solid #30405f;border-radius:8px;padding:8px 9px;font:inherit;outline:none;margin-bottom:8px}
+.ce-href-pop-actions{display:flex;gap:6px}
+.ce-href-pop-actions .ce-btn{flex:1;padding:7px 8px;justify-content:center}
+.ce-href-pop-full{width:100%;box-sizing:border-box;justify-content:center;margin-top:6px;padding:7px 8px;font-size:11px}
+
+/* menu manager modal */
+.ce-menu-rows{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.ce-menu-row{display:flex;align-items:center;gap:8px;background:#0b1120;border:1px solid #263252;border-radius:10px;padding:8px}
+.ce-menu-row .ce-drag{cursor:grab;color:#8ea0c9;padding:0 2px}
+.ce-menu-row input{background:#0a1020;color:#f3f6ff;border:1px solid #30405f;border-radius:8px;padding:8px 9px;font:inherit;outline:none}
+.ce-menu-row .ce-menu-label{flex:1;min-width:0}
+.ce-menu-row .ce-menu-url{flex:1.4;min-width:0}
+.ce-menu-row .ce-menu-remove{border:0;background:#2a1620;color:#ff9daf;width:32px;height:32px;border-radius:8px;cursor:pointer;flex:0 0 auto}
+.ce-menu-row .ce-menu-remove:hover{background:#3a1c29}
+.ce-modal-actions{display:flex;justify-content:flex-end;margin-top:4px}
+
+/* template picker */
+.ce-template-section-title{font-size:11px;letter-spacing:.05em;color:#8390ab;margin:16px 0 8px;font-weight:700}
+.ce-template-section-title:first-of-type{margin-top:0}
+.ce-modal-wide .ce-modal-box{width:min(980px,100%)}
+.ce-theme-hint{margin:-6px 0 16px;color:#8390ab;font-size:12px}
+.ce-theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ce-theme-card{border-radius:12px;overflow:hidden;background:#0b1120;border:1px solid #263252;cursor:pointer;transition:border-color .15s,transform .15s;position:relative}
+.ce-theme-remove{position:absolute;top:8px;right:8px;z-index:6;width:24px;height:24px;border-radius:50%;border:0;background:rgba(10,14,26,.72);color:#ff9daf;font-size:12px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .12s}
+.ce-theme-card:hover .ce-theme-remove{opacity:1}
+.ce-theme-remove:hover{background:#5a2c39;color:#ffd0da}
+.ce-hidden-templates-note{margin:14px 0 0;color:#8390ab;font-size:12px;text-align:center}
+.ce-hidden-templates-note button{background:none;border:0;color:#a9c2ff;cursor:pointer;font:inherit;padding:0;text-decoration:underline}
+.ce-theme-card:not(.active):hover{transform:translateY(-2px);border-color:#3a4b7a}
+.ce-theme-card.active{border-color:#7b5cff;box-shadow:0 0 0 1px #7b5cff;cursor:default}
+.ce-theme-preview{position:relative;aspect-ratio:4/3;overflow:hidden;background:#12182b}
+.ce-theme-frame{position:absolute;top:0;left:0;width:400%;height:400%;transform:scale(.25);transform-origin:top left;border:0;pointer-events:none;background:#fff}
+.ce-theme-hover{position:absolute;inset:0;background:rgba(9,12,22,.72);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s}
+.ce-theme-card:not(.active):hover .ce-theme-hover{opacity:1}
+.ce-theme-hover-static{opacity:1;background:rgba(9,12,22,.4)}
+.ce-theme-meta{padding:11px 13px;display:flex;flex-wrap:wrap;align-items:center;gap:5px 8px}
+.ce-theme-meta b{font-size:13px;color:#eef2fb;flex:0 0 auto}
+.ce-theme-meta small{color:#8390ab;flex:1 1 100%;font-size:11px}
+.ce-theme-active-badge{font-size:10px;font-weight:700;color:#8ef0b0;background:rgba(126,240,176,.12);padding:2px 8px;border-radius:999px}
+.ara-edit-mode .ce-global-toolbar{top:75px}
+@media(max-width:800px){
+  .ara-edit-mode .ce-global-toolbar{top:68px}.ce-theme-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.ce-theme-grid{grid-template-columns:1fr}}
+
+/* live preview confirmation bar */
+.ce-preview-bar{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:14px;background:#12182b;border:1px solid #3a2fbf;box-shadow:0 10px 34px rgba(0,0,0,.45);border-radius:14px;padding:12px 16px;max-width:min(680px,92vw)}
+.ce-preview-bar-icon{font-size:16px;flex:0 0 auto}
+.ce-preview-bar-text{color:#dfe4f3;font-size:12.5px;flex:1 1 auto}
+.ce-preview-bar-text b{color:#fff}
+.ce-preview-bar-text u{color:#ffb15c;text-decoration:none}
+.ce-preview-bar-actions{display:flex;gap:8px;flex:0 0 auto}
+body.ce-has-preview-bar{padding-bottom:64px}
+@media(max-width:640px){.ce-preview-bar{flex-wrap:wrap;bottom:10px}.ce-preview-bar-text{flex:1 1 100%}}
+@media(max-width:700px){.ce-template-grid{grid-template-columns:1fr}.ce-menu-row{flex-wrap:wrap}.ce-menu-row .ce-menu-label,.ce-menu-row .ce-menu-url{flex-basis:100%}}
+@media(max-width:800px){.ce-topbar{flex-wrap:wrap;height:auto;padding:8px 10px}.ara-edit-mode{padding-top:88px}.ara-edit-mode .ara-header{top:88px}.ce-block-toolbar{top:88px}.ce-media-grid{grid-template-columns:repeat(3,1fr)}.ce-library-grid{grid-template-columns:1fr 1fr}}
+
+/* ---- fake "Mobile" device preview ----
+   The real @media(max-width:…) breakpoints in site.css/theme-*.css only
+   fire based on the browser's actual viewport width. Since the editor's
+   Mobile button just narrows the <html> box (it doesn't change the real
+   viewport), those breakpoints never activate and the desktop grid/columns
+   get squeezed into a narrow box instead of stacking — that's the "rusak"
+   layout. Forcing html.ce-mobile-preview here makes the mobile rules apply
+   regardless of real viewport size, and the extra "html." in each selector
+   gives them enough specificity to win over the normal desktop rules. */
+html.ce-mobile-preview{max-width:390px!important;margin:0 auto!important;box-shadow:0 0 0 8px #171e2d,0 0 40px rgba(0,0,0,.5)!important}
+html.ce-mobile-preview .ara-header{padding:0 20px}
+html.ce-mobile-preview .ara-header nav{gap:18px}
+html.ce-mobile-preview .ara-brand{font-size:18px}
+html.ce-mobile-preview .ara-brand-logo{max-height:none}
+html.ce-mobile-preview .ara-brand-logo-slot{height:auto;min-height:42px}
+html.ce-mobile-preview .ara-header nav a{font-size:12px}
+html.ce-mobile-preview .ara-hero,html.ce-mobile-preview .ara-feature,html.ce-mobile-preview .ara-about,html.ce-mobile-preview .ara-contact{padding-left:20px;padding-right:20px}
+html.ce-mobile-preview .hero-heading h1{font-size:39px}
+html.ce-mobile-preview .hero-image-wrap>img{height:210px}
+html.ce-mobile-preview .hero-thumb{left:20px;width:150px;height:95px}
+html.ce-mobile-preview .feature-inner{grid-template-columns:1fr;gap:36px;max-width:620px}
+html.ce-mobile-preview .feature-inner .feature-image{order:2}
+html.ce-mobile-preview .feature-inner .feature-copy{order:1}
+html.ce-mobile-preview .feature-copy h2,html.ce-mobile-preview .about-inner h2,html.ce-mobile-preview .contact-inner h2{font-size:30px}
+html.ce-mobile-preview .feature-image img{height:250px}
+html.ce-mobile-preview .name-grid{grid-template-columns:1fr;gap:18px}
+html.ce-mobile-preview .ara-contact{padding-top:70px}
+html.ce-mobile-preview .ara-footer{padding-left:20px;padding-right:20px}
+html.ce-mobile-preview .feature-copy p,html.ce-mobile-preview .about-inner p{font-size:14px}
+html.ce-mobile-preview .gallery-grid{grid-template-columns:1fr}
+html.ce-mobile-preview .gallery-grid img{height:230px}
+html.ce-mobile-preview .quote-content{font-size:22px}
+html.ce-mobile-preview .cta-button-wrap{margin-top:-25px}
+html.ce-mobile-preview .hero-btn{margin-top:22px}
+html.ce-mobile-preview .hero-layout-split .hero-inner{display:block}
+html.ce-mobile-preview .hero-layout-split .hero-heading{margin-bottom:44px}
+html.ce-mobile-preview .hero-grid,html.ce-mobile-preview .hero-slider{height:280px}
+html.ce-mobile-preview .hero-grid{gap:8px}
+html.ce-mobile-preview body.theme-bold .ara-header{position:sticky;background:#05070c}
+html.ce-mobile-preview body.theme-bold:not(.hero-layout-overlay) .ara-hero{padding-top:56px}
+html.ce-mobile-preview body.theme-bold .dynamic-block.block-feature:has(.feature-image),html.ce-mobile-preview body.theme-bold .dynamic-block.block-image-text:has(.feature-image){min-height:0;display:block;clip-path:none;padding:0}
+html.ce-mobile-preview body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-image,html.ce-mobile-preview body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-image{position:static;height:240px}
+html.ce-mobile-preview body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-inner,html.ce-mobile-preview body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-inner{padding:28px 20px}
+html.ce-mobile-preview body.theme-bold .dynamic-block.block-feature:has(.feature-image) .feature-image::after,html.ce-mobile-preview body.theme-bold .dynamic-block.block-image-text:has(.feature-image) .feature-image::after{display:none}
+html.ce-mobile-preview body.theme-bold .dynamic-block.block-quote{clip-path:none}
+html.ce-mobile-preview body.theme-minimal .hero-inner{border-radius:20px;padding:32px 28px 0;margin-bottom:0}
+html.ce-mobile-preview body.theme-minimal .hero-image-wrap{transform:none}
+html.ce-mobile-preview body.theme-minimal .ara-hero{padding-bottom:52px}
+html.ce-mobile-preview body.theme-minimal .dynamic-block .feature-inner{padding:32px;border-radius:20px}
+
+/* ---- typography toolbar ---- */
+.ce-type-toolbar{display:none;position:fixed;z-index:10003;align-items:center;gap:5px;background:#11182a;border:1px solid #2e3a5c;border-radius:10px;padding:6px 7px;box-shadow:0 8px 22px rgba(0,0,0,.34);font:12px/1 system-ui,sans-serif;color:#dbe2f7;max-width:calc(100vw - 16px);overflow-x:auto}
+.ce-type-toolbar.open{display:flex}
+.ce-type-toolbar select,.ce-type-toolbar input[type=number]{height:30px;background:#1c2542;color:#eef2ff;border:1px solid #30405f;border-radius:7px;padding:0 6px;font:12px/1 system-ui,sans-serif}
+.ce-type-toolbar select{min-width:112px}
+.ce-type-toolbar input[type=number]{width:58px}
+.ce-type-toolbar input[type=color]{width:30px;height:30px;padding:2px;border:0;border-radius:7px;background:#1c2542;cursor:pointer}
+.ce-type-toolbar button{border:0;background:#1c2542;color:#dbe2f7;min-width:28px;height:30px;border-radius:7px;cursor:pointer}
+.ce-type-toolbar button:hover,.ce-type-toolbar button.active{background:#7b5cff;color:#fff}
+.ce-type-toolbar .ce-type-label{font-size:10px;color:#8390ab;text-transform:uppercase;letter-spacing:.04em;margin-left:2px}
+.ce-type-toolbar .ce-type-align{display:flex;gap:2px}
+@media(max-width:700px){
+  .ce-type-toolbar{left:8px!important;right:8px;max-width:none;top:auto!important;bottom:8px!important;justify-content:flex-start}
+  .ce-type-toolbar select{min-width:105px}
+}
+
+.ce-template-upload{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px;padding:12px 14px;background:#0b1120;border:1px dashed #394867;border-radius:12px}
+.ce-template-upload b{display:block;font-size:12.5px}.ce-template-upload small{display:block;color:#8390ab;margin-top:3px}
+.ce-custom-template-section{grid-column:1/-1;margin-top:4px}.ce-custom-template-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:10px}
+.ce-custom-thumb{width:100%;height:100%;object-fit:cover;display:block}
+.ce-custom-no-thumb{height:100%;display:flex;align-items:center;justify-content:center;color:#71809d;font-size:12px}
+@media(max-width:700px){.ce-custom-template-grid{grid-template-columns:1fr}.ce-template-upload{align-items:flex-start;flex-direction:column}}
+
+/* ---- full template structure importer ---- */
+.ce-custom-theme-card .ce-theme-meta{gap:6px 8px}
+.ce-template-block-count{color:#a9b5cf!important}
+.ce-template-actions{display:flex;gap:7px;flex:1 1 100%;margin-top:5px}
+.ce-template-actions .ce-btn{flex:1;justify-content:center;min-height:32px;padding:7px 9px;font-size:11px}
+.ce-custom-theme-card .ce-custom-thumb{background:#fff}
+.ce-custom-theme-card .ce-custom-no-thumb{background:linear-gradient(135deg,#121a2d,#202b48);font-weight:800;letter-spacing:.04em;color:#9aa9c8}
+@media(max-width:700px){.ce-template-actions{flex-direction:column}.ce-template-actions .ce-btn{width:100%}}
+
+/* V15: real template previews + social editor */
+.ce-custom-thumb{display:block;width:100%;height:220px;object-fit:cover;background:#f5f7fb}.ce-custom-theme-card .ce-theme-preview{min-height:220px;overflow:hidden}.ce-settings-divider{margin:18px 0 8px;padding-top:14px;border-top:1px solid #263252;color:#eef2fb;font-size:12px;font-weight:800;letter-spacing:.04em}.ce-social-settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ce-social-settings-grid .ce-field{margin:0}.ce-settings-hint{display:block;color:#8390ab;margin:8px 0 12px}.ara-edit-mode [data-cms-social]{outline:1px dashed rgba(169,194,255,.55);outline-offset:4px;cursor:pointer}.ara-edit-mode [data-cms-social]:hover{background:#24314f!important;color:#fff!important}
+@media(max-width:700px){.ce-social-settings-grid{grid-template-columns:1fr}.ce-custom-thumb,.ce-custom-theme-card .ce-theme-preview{height:180px;min-height:180px}}
+
+.ce-global-danger{background:#b42318!important;color:#fff!important;border-color:#b42318!important}.ce-global-danger:hover{filter:brightness(.95)}
+
+/* V19 menu manager */
+.ce-menu-modal-box{width:min(900px,96vw)}
+.ce-menu-row{display:grid!important;grid-template-columns:26px minmax(130px,1fr) 145px minmax(180px,1.4fr) minmax(180px,1.4fr) 18px 32px;align-items:center;gap:8px}
+.ce-menu-row .ce-menu-label,.ce-menu-row .ce-menu-url,.ce-menu-row select{width:100%;min-width:0}
+.ce-menu-row select{background:#0a1020;color:#f3f6ff;border:1px solid #30405f;border-radius:8px;padding:8px 9px;font:inherit;outline:none}
+.ce-menu-status{font-size:12px;color:#8ef0b0;white-space:nowrap}.ce-menu-status.orphan{color:#ffb15c}
+.ara-edit-mode [data-anchor-id]{scroll-margin-top:90px}
+@media(max-width:900px){.ce-menu-row{grid-template-columns:26px 1fr 1fr 32px}.ce-menu-row .ce-menu-type,.ce-menu-row .ce-menu-section,.ce-menu-row .ce-menu-url{grid-column:2/4}.ce-menu-row .ce-menu-status{grid-column:3}.ce-menu-row .ce-menu-remove{grid-column:4;grid-row:1}}
+
+/* V20: lightweight builder affordances */
+.ce-library-item small{display:block;line-height:1.35}.ce-library-item{min-height:78px}
+
+
+/* V20.3.2 — Global Header, isolated from core builder */
+.ara-edit-mode .ara-header[data-ce-header]{position:relative;z-index:50;outline:1px dashed rgba(104,78,255,.28);outline-offset:-1px;overflow:visible!important}
+.ara-edit-mode .ce-header-edit{position:absolute;right:10px;top:50%;transform:translateY(-50%);z-index:80;border:1px solid rgba(169,194,255,.45);background:#16213d;color:#fff;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:700;cursor:pointer;box-shadow:0 5px 14px rgba(0,0,0,.18)}
+.ara-edit-mode .ce-header-edit:hover{background:#23345f}
+.ce-header-modal{max-width:560px!important}
+/* Header color picker must sample the real canvas pixels; the generic modal veil would darken the header. */
+.ce-modal.ce-header-settings-modal{background:transparent!important;pointer-events:none}
+.ce-modal.ce-header-settings-modal .ce-modal-box{pointer-events:auto;box-shadow:0 12px 34px rgba(0,0,0,.32)}
+.ce-color-row{display:grid;grid-template-columns:1fr 52px;gap:8px;align-items:center}
+.ce-color-row input[type=color]{width:52px;height:38px;padding:2px;border-radius:8px}
+.ce-header-live-note{margin:10px 0 14px;padding:10px 12px;border:1px solid rgba(104,78,255,.2);border-radius:8px;background:rgba(104,78,255,.06);font-size:12px;line-height:1.5;color:#4d4f5a}
+@media(max-width:800px){.ce-header-edit{right:6px;padding:6px 8px;font-size:10px}.ara-edit-mode .ara-header[data-ce-header]{outline:0}}
+
+.ce-menu-typography{margin:16px 0 8px;padding:14px;background:#0b1120;border:1px solid #263252;border-radius:12px}.ce-menu-typography-title{font-weight:800;color:#eef2ff;margin-bottom:10px}.ce-menu-type-grid{display:grid;grid-template-columns:1.5fr .7fr 1fr 70px;gap:10px}.ce-menu-type-grid label{display:block;color:#9aa7c1;font-size:11px}.ce-menu-type-grid input,.ce-menu-type-grid select{width:100%;margin-top:6px;background:#0a1020;color:#f3f6ff;border:1px solid #30405f;border-radius:8px;padding:8px 9px;font:inherit;outline:none}.ce-menu-typography small{display:block;color:#73809a;margin-top:9px}@media(max-width:700px){.ce-menu-type-grid{grid-template-columns:1fr 1fr}.ce-menu-type-grid label:first-child{grid-column:1/-1}}
+
+/* V20.5: make the fake Mobile preview behave like the real mobile navigation */
+html.ce-mobile-preview .ara-header{position:relative;z-index:50}
+html.ce-mobile-preview .ara-header .ara-brand-wrap{min-width:0;max-width:calc(100% - 56px)}
+html.ce-mobile-preview .ara-header nav{display:none;position:absolute;left:20px;right:20px;top:calc(100% + 8px);z-index:60;flex-direction:column;gap:0;padding:8px;border-radius:14px;background:inherit;box-shadow:0 12px 30px rgba(0,0,0,.18);border:1px solid rgba(127,127,127,.22)}
+html.ce-mobile-preview .ara-header nav.ara-nav-open{display:flex}
+html.ce-mobile-preview .ara-header nav a{display:block;padding:12px 14px;font-size:14px;line-height:1.25;white-space:normal}
+html.ce-mobile-preview .ara-header .ara-menu-toggle{display:flex}
+/* V20.7.2.6: the floating Header editor control must never cover navigation.
+   Header editing is already available from the Builder topbar, so the in-canvas
+   button is hidden in both Desktop and Mobile preview. This leaves the header
+   navigation area fully clickable and visible. */
+.ara-edit-mode .ara-header .ce-header-edit{display:none!important}
+@media(max-width:480px){html.ce-mobile-preview .ara-header nav{left:14px;right:14px}}
+
+/* V20.8 — Responsive Builder preview. Device switching is preview-only and
+   never writes a responsive value to the database. */
+/* V20.8.1 — Mobile preview keeps the Builder canvas full-width while mobile
+   responsive rules still apply. Tablet keeps its fixed preview width. */
+html.ce-tablet-preview{width:768px!important;max-width:768px!important;margin:0 auto!important;overflow-x:hidden!important;background:#fff!important}
+html.ce-mobile-preview body,html.ce-tablet-preview body{min-width:0!important;overflow-x:hidden!important}
+html.ce-tablet-preview .ara-header{width:100%!important;box-sizing:border-box!important}
+html.ce-tablet-preview .ara-header nav{gap:24px!important}
+html.ce-tablet-preview .ara-brand{font-size:19px!important}
+html.ce-tablet-preview .hero-inner{grid-template-columns:1fr 1fr!important;gap:24px!important}
+html.ce-tablet-preview .feature-inner{grid-template-columns:1fr 1fr!important;gap:28px!important}
+html.ce-tablet-preview .hero-heading h1{font-size:clamp(42px,6vw,64px)!important}
+html.ce-tablet-preview .hero-image-wrap>img{height:280px!important}
+/* V20.8.3: Separate Builder chrome from the Mobile site viewport.
+   The Builder topbar stays full-width, while the actual website preview
+   remains a 390px mobile canvas. This prevents the mobile page from looking
+   like Desktop while keeping all Builder controls readable. */
+html.ce-mobile-preview .ce-topbar{
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  width:100vw!important;
+  max-width:none!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  z-index:9999!important;
+}
+html.ce-mobile-preview body{
+  width:390px!important;
+  max-width:390px!important;
+  min-width:390px!important;
+  margin:0 auto!important;
+  overflow-x:hidden!important;
+  background:#fff!important;
+}
+html.ce-mobile-preview .ce-block-toolbar{top:64px!important;max-width:calc(100% - 8px)!important;overflow-x:auto!important;white-space:nowrap!important}
+html.ce-mobile-preview .ce-type-toolbar{max-width:calc(100vw - 12px)!important;overflow-x:auto!important}
+html.ce-mobile-preview .ara-header .ara-brand-wrap{max-width:calc(100% - 56px)!important}
+html.ce-mobile-preview .hero-inner,html.ce-mobile-preview .feature-inner,html.ce-mobile-preview .about-inner,html.ce-mobile-preview .contact-inner{width:100%!important;max-width:none!important;box-sizing:border-box!important}
+html.ce-mobile-preview .hero-heading h1{font-size:39px!important;line-height:1.05!important}
+html.ce-mobile-preview .hero-text,.html.ce-mobile-preview .feature-copy p{font-size:14px!important}
+html.ce-mobile-preview .hero-btn,.html.ce-mobile-preview .block-btn{max-width:100%!important}
+html.ce-mobile-preview .ara-footer{padding-left:20px!important;padding-right:20px!important}
+
+
+/* V20.6 Slider Manager */
+.ce-slider-modal-box{max-width:820px}.ce-slider-rows{display:grid;gap:10px;max-height:430px;overflow:auto;padding:4px}.ce-slider-row{display:grid;grid-template-columns:110px 1fr 28px;gap:12px;align-items:center;padding:10px;border:1px solid #27324b;border-radius:10px;background:#0d1425}.ce-slider-thumb{height:76px;border-radius:7px;overflow:hidden;background:#18223a;display:grid;place-items:center;color:#71809d;font-size:11px}.ce-slider-thumb img{width:100%;height:100%;object-fit:cover}.ce-slider-meta{display:grid;gap:7px}.ce-slider-meta b{font-size:12px}.ce-slider-alt{width:100%;background:#0a1120;border:1px solid #2b3854;color:#eef2fb;border-radius:7px;padding:8px}.ce-slider-options{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.ce-slider-options label{font-size:11px;color:#8d9ab5;display:grid;gap:5px}.ce-slider-options input,.ce-slider-options select{background:#0a1120;border:1px solid #2b3854;color:#eef2fb;border-radius:7px;padding:8px}.ce-slider-image-status{display:inline-block;margin-left:6px;color:#7ee2a8;font-size:10px;font-weight:700}.ce-slider-row.has-image .ce-slider-thumb{outline:1px solid rgba(126,226,168,.35)}.ce-slider-row .ce-slider-remove{opacity:.8}.ce-slider-row .ce-slider-remove:hover{opacity:1}@media(max-width:700px){.ce-slider-options{grid-template-columns:1fr 1fr}.ce-slider-row{grid-template-columns:82px 1fr 24px}.ce-slider-thumb{height:62px}}
+
+/* Media picker opened from Slider Manager: always above the parent modal. */
+.ce-modal.ce-media-picker{z-index:10020!important}
+
+/* V20.7: if legacy data contains multiple Hero blocks, keep the editor unambiguous. */
+.ara-edit-mode.ce-multiple-heroes .ara-hero .ce-block-toolbar{display:none!important}
+.ara-edit-mode.ce-multiple-heroes .ara-hero:hover .ce-block-toolbar,.ara-edit-mode.ce-multiple-heroes .ara-hero.ce-selected .ce-block-toolbar{display:flex!important}

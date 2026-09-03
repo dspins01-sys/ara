@@ -1,0 +1,24 @@
+Options -Indexes
+DirectoryIndex public/index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Keep real files/folders (including /admin/) accessible.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Public website entry point.
+    RewriteRule ^$ public/index.php [L]
+
+    # Pretty paths for public assets/uploads.
+    RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+    RewriteRule ^uploads/(.*)$ public/uploads/$1 [L]
+
+    # Contact form endpoint.
+    RewriteRule ^contact\.php$ public/contact.php [L]
+
+    # Everything else goes to the public front controller.
+    RewriteRule ^(.+)$ public/index.php [L]
+</IfModule>

@@ -1,0 +1,147 @@
+/* Vision Pulse Same View — template only. No CMS/core changes. */
+:root{
+  --vp-bg:#e9e6dc;
+  --vp-ink:#1b1b1b;
+  --vp-line:#292822;
+  --vp-muted:#625f58;
+  --vp-orange:#f26b21;
+}
+html{scroll-behavior:smooth;scroll-padding-top:var(--ara-header-scroll,67px);background:var(--vp-bg)!important;scroll-snap-type:y mandatory;overflow-y:auto}
+body{margin:0;background:var(--vp-bg)!important;color:var(--vp-ink);font-family:Arial,Helvetica,sans-serif;min-height:100dvh}
+.ara-site{min-height:100dvh;background:var(--vp-bg)!important;position:relative;overflow:visible;scroll-snap-type:y mandatory}
+.ara-site:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(135deg,transparent 0 69%,rgba(255,255,255,.34) 69% 71%,transparent 71%),linear-gradient(155deg,transparent 0 82%,rgba(36,35,30,.075) 82% 86%,transparent 86%)}
+
+/* Header */
+.ara-header{height:var(--ara-header-effective-height,auto)!important;min-height:var(--ara-header-effective-height,67px)!important;width:58.2vw!important;box-sizing:border-box!important;background:rgba(233,230,220,.97)!important;border:0!important;border-right:1px solid var(--vp-line)!important;border-bottom:1px solid var(--vp-line)!important;padding:var(--ara-header-pad-y,0) 38px!important;position:sticky!important;top:0!important;z-index:50!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:38px!important}
+.ara-brand{width:72px!important;height:54px!important;flex:0 0 72px!important;background:url('../../images/templates/vision-pulse-same-view/logo.png') center/contain no-repeat!important;font-size:0;text-decoration:none!important}
+.ara-header nav{display:flex!important;align-items:center!important;gap:39px!important;margin:0!important}
+.ara-header nav a{color:var(--vp-ink);font-size:13px;font-weight:500;line-height:1;text-decoration:none!important;position:relative!important;padding:8px 0!important}
+.ara-header nav a:hover:after,.ara-header nav a:focus-visible:after{content:"";position:absolute;left:0;right:0;bottom:1px;height:1px;background:var(--vp-ink)}
+
+/* Hero */
+.ara-hero{position:relative!important;z-index:2!important;background:transparent!important;padding:42px 34px 34px!important;height:calc(100dvh - 67px)!important;min-height:calc(100dvh - 67px)!important;box-sizing:border-box!important;overflow:hidden!important;display:flex!important;align-items:flex-start!important}
+.ara-hero:before{content:"";position:absolute;right:-30px;top:-25px;width:280px;height:155px;background:rgba(255,255,255,.28);clip-path:polygon(0 100%,40% 0,100% 0,57% 100%,100% 100%,100% 0);pointer-events:none}
+.ara-hero:after{content:"";position:absolute;left:214px;bottom:-4px;width:245px;height:145px;background:rgba(37,36,31,.085);clip-path:polygon(0 100%,30% 0,45% 0,27% 60%,80% 60%,100% 100%);transform:rotate(-2deg);pointer-events:none}
+.hero-inner{max-width:none!important;width:100%!important;margin:0!important;display:grid!important;grid-template-columns:338px minmax(0, min(61vh, calc(100vw - 540px))) 178px!important;column-gap:0!important;align-items:start!important;justify-content:center!important;position:relative!important;z-index:3!important}
+.hero-heading{grid-column:1!important;max-width:338px!important;margin:0!important;padding:0!important;position:relative!important}
+.hero-heading h1{margin:0!important;font-family:Arial,Helvetica,sans-serif;font-size:48px;line-height:.98;letter-spacing:-.045em;font-weight:900;text-transform:uppercase!important;color:var(--vp-ink);overflow-wrap:normal!important;word-break:normal!important}
+.hero-heading h1:before{content:"";position:absolute;left:0;top:0;height:1px;width:100vw;background:var(--vp-line);opacity:.9}
+.hero-heading:after{content:"";position:absolute;left:0;bottom:-3px;width:1px;height:116px;background:var(--vp-line)}
+.hero-accent{font-family:'Caveat',cursive;font-size:48px;line-height:.8;font-weight:600;color:var(--vp-orange);margin:7px 0 0 4px!important;transform:rotate(-4deg);display:block!important}
+.hero-heading>p:not(.hero-accent),.hero-btn{display:none!important}
+.hero-badge{display:block!important;margin:0!important;background:var(--vp-ink)!important;color:#fff;border-radius:0!important;padding:6px 10px!important;font-size:12px;line-height:1.1;letter-spacing:.03em;font-weight:700;text-align:center;align-self:flex-start!important}
+.hero-image-wrap{grid-column:2!important;width:min(61vh, calc(100vw - 522px))!important;max-width:none!important;margin:0!important;position:relative!important;align-self:start!important;justify-self:center!important}
+.hero-image-wrap>img{display:block!important;width:100%!important;height:auto!important;aspect-ratio:.95!important;object-fit:cover!important;border:1px solid var(--vp-line)!important;border-radius:0!important;box-sizing:border-box!important}
+.hero-thumb{display:block!important;position:absolute!important;left:46px!important;bottom:2px!important;width:126px!important;height:111px!important;overflow:hidden!important;border:4px solid var(--vp-bg)!important;outline:1px solid var(--vp-line)!important;z-index:4!important}
+.hero-thumb img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important}
+.hero-image-wrap:after{content:"";position:absolute;left:0;right:0;bottom:-20px;height:20px;border-left:1px solid var(--vp-line);border-right:1px solid var(--vp-line);box-sizing:border-box}
+.hero-image-wrap:before{display:none!important}
+.hero-side{grid-column:3!important;margin-left:18px!important;min-width:0!important;height:100%!important;min-height:580px!important;border-left:1px solid var(--vp-line)!important;border-right:1px solid var(--vp-line)!important;box-sizing:border-box!important;position:relative!important;display:flex!important;flex-direction:column!important;align-items:center!important;padding:0 18px!important}
+.hero-side .hero-badge{position:absolute!important;top:135px!important;left:50%!important;transform:translateX(-50%)!important;margin:0!important;max-width:calc(100% - 20px)!important;white-space:nowrap!important}
+.hero-side-copy{position:absolute!important;top:190px!important;left:10px!important;right:10px!important;text-align:center;font-size:15px;line-height:1.28;color:var(--vp-muted);margin:0!important;max-height:170px!important;overflow:hidden!important}
+.hero-side-cta{position:absolute!important;top:378px!important;left:50%!important;transform:translateX(-50%)!important;width:116px!important;height:28px!important;border:1px solid var(--vp-line)!important;border-radius:18px!important;display:grid!important;place-items:center!important;font-size:12px;font-weight:700;color:var(--vp-ink);text-decoration:none!important;background:transparent!important;box-sizing:border-box!important}
+.hero-side-socials{position:absolute!important;top:430px!important;left:0!important;right:0!important;width:100%!important;height:30px!important;min-height:30px!important;display:flex!important;justify-content:center!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important;overflow:visible!important;box-sizing:border-box!important}
+.hero-side-socials a,.hero-side-socials .hero-social-edit{width:30px!important;height:30px!important;min-width:30px!important;padding:0!important;border:0!important;border-radius:50%!important;background:var(--vp-ink)!important;color:#fff!important;display:grid!important;place-items:center!important;text-decoration:none!important;font-size:12px!important;font-weight:800!important;line-height:1!important;box-sizing:border-box!important;cursor:pointer!important;appearance:none!important;-webkit-appearance:none!important}.hero-side-socials a:hover,.hero-side-socials .hero-social-edit:hover{transform:translateY(-2px);opacity:.82}.hero-side-socials svg{width:14px!important;height:14px!important;max-width:14px!important;max-height:14px!important;min-width:14px!important;min-height:14px!important;display:block!important;flex:0 0 14px!important;fill:currentColor!important;stroke:currentColor!important;stroke-width:0!important;overflow:hidden!important}.hero-side-socials svg path{fill:currentColor!important;stroke:none!important}.hero-side-socials svg rect,.hero-side-socials svg circle{fill:none!important;stroke:currentColor!important;stroke-width:1.8!important}.hero-side-socials svg circle:last-child{fill:currentColor!important;stroke:none!important}
+.hero-inner:after{display:none!important}
+.hero-inner:before{display:none!important}
+
+/* V18.5: all CMS blocks must remain visible in Vision. The old same-view skin
+   hid dynamic blocks because it predated the block-first CMS architecture. */
+.dynamic-block{display:block!important;position:relative!important;visibility:visible!important;opacity:1!important;background:transparent!important;z-index:3!important}
+.dynamic-block .feature-inner,.dynamic-block .quote-inner{position:relative!important}
+.dynamic-block.block-feature,.dynamic-block.block-image-text{background:rgba(255,255,255,.18)!important;border-top:1px solid var(--vp-line)!important;border-bottom:1px solid var(--vp-line)!important}
+.dynamic-block.block-feature .feature-inner,.dynamic-block.block-image-text .feature-inner{width:min(1180px,calc(100% - 68px))!important;margin:0 auto!important;gap:48px!important}
+.dynamic-block.block-text,.dynamic-block.block-gallery,.dynamic-block.block-quote{background:rgba(233,230,220,.98)!important;border-top:1px solid var(--vp-line)!important}
+.dynamic-block.block-text .feature-inner,.dynamic-block.block-gallery .gallery-inner,.dynamic-block.block-quote .quote-inner{width:min(980px,calc(100% - 68px))!important;margin:0 auto!important}
+.dynamic-block.block-cta{background:var(--vp-ink)!important;color:#fff!important}
+.dynamic-block.block-spacer{background:transparent!important}
+.dynamic-block.block-spacer .feature-inner{display:none!important}
+.dynamic-block h2{font-family:Arial,Helvetica,sans-serif!important;font-weight:900!important}
+.dynamic-block .eyebrow{letter-spacing:.14em!important}
+@media(max-width:800px){.dynamic-block.block-feature .feature-inner,.dynamic-block.block-image-text .feature-inner,.dynamic-block.block-text .feature-inner,.dynamic-block.block-gallery .gallery-inner,.dynamic-block.block-quote .quote-inner{width:calc(100% - 40px)!important}.dynamic-block.block-feature .feature-inner,.dynamic-block.block-image-text .feature-inner{display:block!important}.dynamic-block.block-feature .feature-image,.dynamic-block.block-image-text .feature-image{margin-top:28px!important}}
+
+/* Same-view destination sections. Existing CMS nav hashes land here; no new page/tab. */
+.ara-about,.ara-contact{display:flex!important;position:relative!important;z-index:4!important;scroll-margin-top:67px;scroll-snap-align:start;scroll-snap-stop:always}
+.ara-about{height:calc(100dvh - 67px)!important;min-height:calc(100dvh - 67px)!important;box-sizing:border-box!important;align-items:center!important;padding:120px 9vw 110px!important;background:rgba(233,230,220,.98)!important;border-top:1px solid var(--vp-line)!important}
+.about-inner{max-width:920px!important;margin:0 auto!important}
+.ara-about .eyebrow,.ara-contact .eyebrow{display:block!important;font-size:11px;letter-spacing:.14em;font-weight:700;margin-bottom:18px!important}
+.ara-about h2,.ara-contact h2{font-size:clamp(42px,7vw,82px);line-height:.95;letter-spacing:-.045em;margin:0 0 24px!important;text-transform:uppercase!important;font-weight:900}
+.ara-about p,.ara-contact .contact-copy{max-width:680px!important;font-size:17px;line-height:1.6;color:var(--vp-muted);margin:0!important}
+.ara-contact{height:calc(100dvh - 67px)!important;min-height:calc(100dvh - 67px)!important;box-sizing:border-box!important;align-items:center!important;padding:105px 9vw 90px!important;background:var(--vp-ink)!important;color:#fff;border-top:1px solid var(--vp-line)!important}
+.contact-inner{max-width:920px!important;margin:0 auto!important}
+.ara-contact .eyebrow.light{color:#d9d6cd}
+.ara-contact .contact-copy{color:#c7c4bc;margin-bottom:34px!important}
+.ara-contact form{max-width:720px!important;margin:0!important;display:grid!important;gap:14px!important}
+.ara-contact input,.ara-contact textarea{box-sizing:border-box!important;width:100%!important;border:1px solid rgba(255,255,255,.35)!important;background:transparent!important;color:#fff;border-radius:0!important;padding:14px 15px!important;font:inherit!important}
+.ara-contact input::placeholder,.ara-contact textarea::placeholder{color:#b9b6ae}
+.ara-contact textarea{min-height:145px!important;resize:vertical!important}
+.ara-contact button{justify-self:start!important;border:1px solid #fff!important;background:#fff!important;color:var(--vp-ink);padding:12px 25px!important;border-radius:24px!important;font-weight:700;cursor:pointer!important}
+.name-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important}
+
+/* Keep unused old/dynamic content from appearing in this clean template. */
+.dynamic-block{display:block!important;visibility:visible!important;opacity:1!important}
+.ara-footer{display:block!important;scroll-snap-align:start!important;background:var(--vp-bg)!important;color:var(--vp-ink);border-top:1px solid var(--vp-line)!important;padding:28px 38px!important;position:relative!important;z-index:5!important}
+.ara-footer strong{display:block!important;font-size:12px;letter-spacing:.08em}
+.ara-footer small{display:block!important;margin-top:5px!important;color:var(--vp-muted)}
+.ara-footer .socials{display:flex!important;gap:10px!important;margin-bottom:16px!important}
+.ara-footer .socials:empty{display:none!important}
+.ara-footer .socials a{color:var(--vp-ink);text-decoration:none!important}
+.ara-back-to-top{display:none!important}
+
+/* Full-viewport slide behavior: every destination occupies the visible browser frame. */
+.ara-hero,.ara-about,.ara-contact{scroll-snap-align:start!important;scroll-snap-stop:always!important}
+@supports not (height: 100dvh){
+  .ara-hero{height:calc(100vh - 67px)!important;min-height:calc(100vh - 67px)!important}
+  .ara-about,.ara-contact{height:calc(100vh - 67px)!important;min-height:calc(100vh - 67px)!important}
+}
+
+@media(max-width:980px){
+  .ara-header{width:58.2vw!important;padding:0 24px!important}
+  .hero-inner{grid-template-columns:285px minmax(0, min(55vh, calc(100vw - 472px))) 160px!important;column-gap:0!important}
+  .hero-heading{max-width:285px!important}
+  .hero-heading h1{font-size:45px}
+  .hero-side{min-height:500px!important;margin-left:16px!important}
+  .hero-side-copy{top:175px!important;font-size:14px}
+  .hero-side .hero-badge{top:120px!important}
+  .hero-side-cta{top:260px!important}
+  .hero-side-socials a{width:28px!important;height:28px!important;font-size:13px}
+  .hero-side-socials{top:315px!important}
+}
+@media(max-width:720px){
+  html{scroll-padding-top:var(--ara-header-effective-height,60px)}
+  .ara-header{height:var(--ara-header-effective-height,60px)!important;min-height:var(--ara-header-effective-height,60px)!important;padding:var(--ara-header-pad-y,0) 18px!important;gap:20px!important;z-index:100!important;position:sticky!important;overflow:visible!important}
+  .ara-brand{width:62px!important;flex-basis:62px!important;height:50px!important}
+  /* V20.7.2.4: Vision's desktop nav rule uses !important; explicitly override it on mobile. */
+  .ara-header nav{display:none!important;position:absolute!important;left:14px!important;right:14px!important;top:calc(100% + 8px)!important;z-index:200!important;flex-direction:column!important;gap:0!important;overflow:visible!important;padding:8px!important;box-sizing:border-box!important;border-radius:14px!important;background:inherit!important;box-shadow:0 12px 30px rgba(0,0,0,.18)!important;border:1px solid rgba(127,127,127,.22)!important}
+  .ara-header nav.ara-nav-open{display:flex!important}
+  .ara-header nav a{font-size:11px!important;display:block!important;padding:12px 14px!important;line-height:1.25!important;white-space:normal!important}
+  .ara-header .ara-menu-toggle{display:flex!important;position:relative!important;z-index:210!important}
+  .ara-header{width:100%!important;border-right:0!important}
+  .ara-hero{height:calc(100dvh - 60px)!important;min-height:calc(100dvh - 60px)!important;padding:32px 22px 60px!important;align-items:flex-start!important}
+  .hero-inner{display:grid!important;grid-template-columns:1fr!important;gap:24px!important}
+  .hero-heading{grid-column:1!important;max-width:560px!important}
+  .hero-heading h1{font-size:clamp(48px,12vw,70px)}
+  .hero-image-wrap{grid-column:1!important}
+  .hero-image-wrap>img{height:min(38vh,330px)!important;min-height:230px!important}
+  .hero-inner:before,.hero-inner:after,.hero-image-wrap:before,.hero-image-wrap:after,.hero-side{display:none!important}
+  .hero-thumb{left:28px!important;bottom:16px!important;width:115px!important;height:96px!important}
+  .ara-about{height:calc(100dvh - 60px)!important;min-height:calc(100dvh - 60px)!important;padding:90px 24px!important}
+  .ara-contact{height:calc(100dvh - 60px)!important;min-height:calc(100dvh - 60px)!important;padding:85px 24px!important}
+}
+@media(max-width:560px){
+  .ara-header nav{gap:0!important}
+  .ara-header nav a{font-size:10px!important}
+  .ara-hero{padding:28px 18px 48px!important}
+  .hero-heading h1{font-size:47px}
+  .hero-accent{font-size:42px}
+  .hero-image-wrap>img{height:min(34vh,245px)!important;min-height:200px!important}
+  .hero-thumb{left:20px!important;bottom:12px!important;width:105px!important;height:88px!important}
+  .name-grid{grid-template-columns:1fr!important}
+}
+
+/* V16.5: keep CTA below the complete side copy; never overlap editable Lorem text. */
+@media (max-width: 900px){
+  .hero-side-copy{max-height:none!important;overflow:visible!important}
+  .hero-side-cta{top:auto!important}
+  .hero-side-socials{top:auto!important}
+}
