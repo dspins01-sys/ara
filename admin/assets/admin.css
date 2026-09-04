@@ -280,3 +280,87 @@ body.admin-sidebar-collapsed>.builder-admin{margin-left:72px;width:calc(100% - 7
     width:calc(100% - 72px);
   }
 }
+
+/* V20.9.3.1 — builder collapsed-state final override.
+   Keep the visual builder sidebar identical to the normal desktop collapse mode.
+   The builder-shell desktop rules above must not re-expand labels/head when collapsed. */
+@media(min-width:701px){
+  body.builder-shell.admin-sidebar-collapsed>aside#adminSidebar .admin-sidebar-head{
+    width:38px;
+    height:38px;
+    min-height:38px;
+    margin:0 0 12px;
+    justify-content:center;
+    position:relative;
+  }
+  body.builder-shell.admin-sidebar-collapsed>aside#adminSidebar .admin-sidebar-head>b{
+    font-size:0;
+    width:38px;
+    height:38px;
+    margin:0!important;
+    border:1px solid #2d3955;
+    border-radius:12px;
+    position:relative;
+  }
+  body.builder-shell.admin-sidebar-collapsed>aside#adminSidebar .admin-sidebar-head>b:after{
+    content:'A';
+    font-size:18px;
+    font-weight:900;
+    color:#fff;
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+  }
+  body.builder-shell.admin-sidebar-collapsed>aside#adminSidebar .admin-sidebar-collapse{
+    position:absolute;
+    top:0;
+    left:0;
+    width:38px;
+    height:38px;
+    margin:0;
+    opacity:0;
+    transform:none;
+    z-index:2;
+  }
+  body.builder-shell.admin-sidebar-collapsed>aside#adminSidebar .admin-sidebar-head:hover .admin-sidebar-collapse,
+  body.builder-shell.admin-sidebar-collapsed>aside#adminSidebar .admin-sidebar-collapse:focus{
+    opacity:1;
+  }
+  body.builder-shell.admin-sidebar-collapsed>aside#adminSidebar a{
+    width:48px;
+    height:46px;
+    min-height:0;
+    padding:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  body.builder-shell.admin-sidebar-collapsed>aside#adminSidebar .nav-icon{
+    width:auto;
+    flex:initial;
+    font-size:18px;
+    line-height:1;
+  }
+  body.builder-shell.admin-sidebar-collapsed>aside#adminSidebar .nav-label{
+    position:absolute;
+    left:58px;
+    top:50%;
+    transform:translateY(-50%);
+    white-space:nowrap;
+    background:#151d34;
+    border:1px solid #2d3955;
+    color:#eef2ff;
+    border-radius:8px;
+    padding:7px 9px;
+    font-size:11px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .12s;
+    z-index:100;
+  }
+  body.builder-shell.admin-sidebar-collapsed>aside#adminSidebar a:hover .nav-label{
+    opacity:1;
+  }
+}

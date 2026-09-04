@@ -9,7 +9,6 @@ RUN apt-get update \
 RUN a2enmod rewrite
 
 WORKDIR /var/www/html
-
 COPY . /var/www/html
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
