@@ -19,10 +19,10 @@
 @media(max-width:800px){.hero-grid,.hero-slider{height:280px}.hero-grid{gap:8px}}
 
 /* V20.9 Back-to-top floating button: appears after ~300px of scrolling. */
-.ara-back-to-top{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;border:0;background:var(--ara-accent,#1c1c1c);color:#fff;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.24);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(10px);transition:opacity .22s ease,transform .22s ease,visibility .22s;z-index:45}
-.ara-back-to-top.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
-.ara-back-to-top:hover{filter:brightness(1.1)}
-@media(max-width:480px){.ara-back-to-top{right:14px;bottom:14px;width:40px;height:40px;font-size:16px}}
+.ara-back-to-top{position:fixed;right:10px;top:50%;bottom:auto;width:38px;height:38px;border:1px solid #394867;border-radius:50%;background:#11182a;color:#fff;font-size:17px;font-weight:700;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-50%) translateX(8px);transition:opacity .16s ease,transform .16s ease,visibility .16s;z-index:45;display:flex;align-items:center;justify-content:center;padding:0}
+.ara-back-to-top.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(-50%) translateX(0)}
+.ara-back-to-top:hover{background:#2a3660}
+@media(max-width:480px){.ara-back-to-top{right:5px;top:50%;bottom:auto;width:32px;height:32px;font-size:15px}}
 
 /* V20.5 responsive navigation: desktop links, mobile hamburger */
 .ara-menu-toggle{display:none;appearance:none;border:0;background:transparent;color:inherit;width:42px;height:42px;padding:9px;align-items:center;justify-content:center;flex-direction:column;gap:5px;border-radius:10px;cursor:pointer;flex:0 0 auto}

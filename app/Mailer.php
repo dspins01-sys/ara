@@ -61,15 +61,28 @@ function send_smtp(string $to, string $subject, string $html, string $replyTo = 
         return $read();
     };
 
+    // SMTP server mengirim greeting 220 segera setelah koneksi dibuka.
+    // Greeting wajib dibaca terlebih dahulu; kalau tidak, response greeting
+    // akan terbaca sebagai response untuk EHLO dan membuat STARTTLS salah baca.
+    $greeting = $read();
+    if (substr($greeting, 0, 3) !== '220') {
+        fclose($fp);
+        return [false, 'SMTP greeting ditolak: ' . trim($greeting)];
+    }
+
     $serverName = $_SERVER['SERVER_NAME'] ?? 'localhost';
-    $write('EHLO ' . $serverName);
+    $r = $write('EHLO ' . $serverName);
+    if (substr($r, 0, 3) !== '250') {
+        fclose($fp);
+        return [false, 'SMTP EHLO ditolak: ' . trim($r)];
+    }
 
     if ($s['encryption'] === 'tls') {
         $r = $write('STARTTLS');
 
         if (substr($r, 0, 3) !== '220') {
             fclose($fp);
-            return [false, 'STARTTLS ditolak.'];
+            return [false, 'STARTTLS ditolak: ' . trim($r)];
         }
 
         $crypto = stream_socket_enable_crypto(
@@ -91,21 +104,21 @@ function send_smtp(string $to, string $subject, string $html, string $replyTo = 
 
         if (substr($r, 0, 3) !== '334') {
             fclose($fp);
-            return [false, 'SMTP AUTH LOGIN ditolak.'];
+            return [false, 'SMTP AUTH LOGIN ditolak: ' . trim($r)];
         }
 
         $r = $write(base64_encode($s['username']));
 
         if (substr($r, 0, 3) !== '334') {
             fclose($fp);
-            return [false, 'SMTP username ditolak.'];
+            return [false, 'SMTP username ditolak: ' . trim($r)];
         }
 
         $r = $write(base64_encode($s['password']));
 
         if (substr($r, 0, 3) !== '235') {
             fclose($fp);
-            return [false, 'SMTP authentication gagal.'];
+            return [false, 'SMTP authentication gagal: ' . trim($r)];
         }
     }
 

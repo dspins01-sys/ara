@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php require_once __DIR__ . '/_header.php'; ?>
 
 <h1>SMTP</h1>
+<p class="smtp-help">Untuk Gmail: <b>smtp.gmail.com</b> · port <b>587</b> · <b>STARTTLS</b>. Password yang dipakai adalah <b>App Password 16 digit</b>, bukan password Gmail biasa.</p>
 
 <form method="post">
     <input type="hidden" name="csrf" value="<?=e(csrf_token())?>">
@@ -69,12 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endforeach; ?>
 
     <label>
-        Password
+        Password / App Password
         <input
             type="password"
             name="password"
             value=""
-            placeholder="Kosongkan untuk mempertahankan password lama"
+            placeholder="Gmail: isi App Password 16 digit · kosongkan untuk mempertahankan password lama"
             autocomplete="new-password"
         >
     </label>

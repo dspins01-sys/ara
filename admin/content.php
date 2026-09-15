@@ -2,7 +2,7 @@
 require_once __DIR__.'/_header.php';
 ?>
 <div class="builder-head">
-  <div><div class="crumb">DESIGN / PAGE BUILDER</div><h1>Visual Website Builder <span class="version-pill">V20.8.3</span></h1><p class="hint">Klik langsung di preview untuk edit: teks, gambar, layout, warna. Seret ⠿ untuk urutkan block. Semua perubahan tersimpan otomatis. Desktop, Tablet, dan Mobile bisa dipreview tanpa mengubah content. Mobile preview memakai viewport 390px, sementara toolbar Builder tetap full-width. Template dan content terpisah — ganti template tidak menghapus content.</p></div>
+  <div><div class="crumb">DESIGN / PAGE BUILDER</div><h1>Visual Website Builder <span class="version-pill">V20.9.4.3</span></h1><p class="hint">Klik langsung di preview untuk edit: teks, gambar, layout, warna. Seret ⠿ untuk urutkan block. Semua perubahan tersimpan otomatis. Desktop, Tablet, dan Mobile bisa dipreview tanpa mengubah content. Mobile preview memakai viewport 390px, sementara toolbar Builder tetap full-width. Template dan content terpisah — ganti template tidak menghapus content.</p></div>
 </div>
 <div class="canvas-frame-shell">
   <div class="canvas-frame-bar"><span></span><span></span><span></span><small>Live Canvas</small></div>

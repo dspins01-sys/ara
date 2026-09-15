@@ -107,7 +107,7 @@ try {
           if($sid<=0) throw new RuntimeException('Target section belum dipilih untuk: '.$label);
           $clean[]=['label'=>$label,'target_type'=>'section','section_id'=>$sid];
         }else{
-          $url=trim((string)($it['url']??'#'));
+          $url=ara_safe_url((string)($it['url']??'#'),'#');
           $clean[]=['label'=>$label,'target_type'=>'url','url'=>$url!==''?$url:'#'];
         }
       }

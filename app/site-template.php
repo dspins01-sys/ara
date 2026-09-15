@@ -121,13 +121,13 @@ function render_block(array $sec,bool $preview,bool $editMode=false): string {
       echo '<h1'.ck($editMode,"section.$id.title").'>'.e((string)$heroData['hero_title']).'</h1>';
       if((string)$heroData['hero_accent']!=='' || $editMode) echo '<p class="hero-accent"'.ck($editMode,"section.$id.subtitle").'>'.e((string)$heroData['hero_accent']).'</p>';
       echo '<div class="hero-text"'.ck($editMode,"section.$id.body",true).'>'.($sec['body']??'<p></p>').'</div>';
-      if((string)$heroData['hero_button']!=='' || $editMode) echo '<a class="hero-btn" href="'.e((string)$heroData['hero_button_url']).'"'.ck($editMode,"section.$id.button_text").($editMode?' data-cms-href-key="section.'.$id.'.button_url"':'').'>'.e((string)$heroData['hero_button']).'</a>';
+      if((string)$heroData['hero_button']!=='' || $editMode) echo '<a class="hero-btn" href="'.e(ara_safe_url((string)$heroData['hero_button_url'],'#contact')).'"'.ck($editMode,"section.$id.button_text").($editMode?' data-cms-href-key="section.'.$id.'.button_url"':'').'>'.e((string)$heroData['hero_button']).'</a>';
       echo '</div>'.ara_hero_visual($heroLayout,$heroData,$preview,$editMode);
       $vpBadge=trim((string)$heroBadge);
       echo '<aside class="hero-side">';
       if($vpBadge!=='') echo '<div class="hero-badge"'.($editMode?' data-cms-key="hero_badge"':'').'>'.e($vpBadge).'</div>';
       if(trim($heroSideText)!=='') echo '<div class="hero-side-copy"'.($editMode?' data-cms-key="hero_side_text"':'').'>'.e($heroSideText).'</div>';
-      if(trim($heroSideCta)!=='') echo '<a class="hero-side-cta" href="'.e((string)$heroData['hero_button_url']).'"'.($editMode?' data-cms-key="hero_side_cta" data-cms-href-key="section.'.$id.'.button_url"':'').'>'.e($heroSideCta).'</a>';
+      if(trim($heroSideCta)!=='') echo '<a class="hero-side-cta" href="'.e(ara_safe_url((string)$heroData['hero_button_url'],'#contact')).'"'.($editMode?' data-cms-key="hero_side_cta" data-cms-href-key="section.'.$id.'.button_url"':'').'>'.e($heroSideCta).'</a>';
       echo '<div class="hero-side-socials" aria-label="Social media" style="width:100%;height:30px;min-height:30px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;overflow:visible;">';
       $heroSocials=[
         ['facebook','<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width:14px;height:14px;max-width:14px;max-height:14px;display:block;flex:none;"><path d="M14 8h3V4h-3c-3.3 0-5 2-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.7.3-1 1-1z"/></svg>','Facebook'],
@@ -137,7 +137,7 @@ function render_block(array $sec,bool $preview,bool $editMode=false): string {
         ['whatsapp','<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width:14px;height:14px;max-width:14px;max-height:14px;display:block;flex:none;"><path d="M20 11.7A8 8 0 0 1 8.3 19L4 20l1.1-4A8 8 0 1 1 20 11.7zM9.2 8.1c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.2.2-.8.8-.8 2s.8 2.4 1 2.6c.1.2 1.6 2.6 4 3.5 2 .8 2.4.6 2.8.6.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.3-.2-.7-.4l-1.3-.6c-.3-.1-.5-.2-.7.2l-.5.7c-.1.2-.3.2-.5.1-.3-.1-1.1-.4-1.8-1.1-.7-.6-1.1-1.4-1.2-1.6-.1-.2 0-.3.1-.5l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.6-1.4z"/></svg>','WhatsApp']
       ];
       foreach($heroSocials as [$sk,$icon,$label]){
-        $su=trim((string)($hs['social_'.$sk]??''));
+        $su=ara_safe_url((string)($hs['social_'.$sk]??''),'');
         if($su==='') continue;
         if($editMode){
           echo '<button type="button" class="hero-social-edit" style="width:30px;height:30px;min-width:30px;max-width:30px;min-height:30px;max-height:30px;padding:0;display:grid;place-items:center;overflow:hidden;" data-cms-social="'.e($sk).'" title="Edit '.e($label).'" aria-label="Edit '.e($label).'">'.$icon.'</button>';
@@ -196,7 +196,7 @@ function render_block(array $sec,bool $preview,bool $editMode=false): string {
     // CTA renders its button below in .cta-button-wrap. Avoid rendering the same button twice.
     if($type!=='cta' && (!empty($sec['button_text']) || $editMode)){
       $hrefAttr=$editMode?' data-cms-href-key="section.'.$id.'.button_url"':'';
-      echo '<a class="block-btn" href="'.e($sec['button_url']?:'#contact').'"'.ck($editMode,"section.$id.button_text").$hrefAttr.'>'.e($sec['button_text']??'').'</a>';
+      echo '<a class="block-btn" href="'.e(ara_safe_url((string)($sec['button_url']??''),'#contact')).'"'.ck($editMode,"section.$id.button_text").$hrefAttr.'>'.e($sec['button_text']??'').'</a>';
     }
     echo '</div>';
     if($type!=='text' && $type!=='cta' && $layout!=='center'){
@@ -205,7 +205,7 @@ function render_block(array $sec,bool $preview,bool $editMode=false): string {
     echo '</div>';
     if($type==='cta'){
       $hrefAttr=$editMode?' data-cms-href-key="section.'.$id.'.button_url"':'';
-      echo '<div class="cta-button-wrap"><a class="block-btn" href="'.e($sec['button_url']?:'#contact').'"'.ck($editMode,"section.$id.button_text").$hrefAttr.'>'.e($sec['button_text']?:'Let&rsquo;s Talk').'</a></div>';
+      echo '<div class="cta-button-wrap"><a class="block-btn" href="'.e(ara_safe_url((string)($sec['button_url']??''),'#contact')).'"'.ck($editMode,"section.$id.button_text").$hrefAttr.'>'.e($sec['button_text']?:'Let&rsquo;s Talk').'</a></div>';
     }
   }
   echo '</section>';
@@ -237,8 +237,8 @@ function render_site(array $s,array $sections,bool $preview=false,bool $editMode
 <main id="top">
 <?php /* V18: Hero is a normal section. No hardcoded/global Hero renderer. */ ?>
 <?php foreach($sections as $sec){ echo render_block($sec,$preview,$editMode); } ?>
-</main><footer class="ara-footer"><div class="socials"><?php $socials=[['facebook','f','Facebook'],['instagram','ig','Instagram'],['x','x','X / Twitter'],['linkedin','in','LinkedIn'],['whatsapp','wa','WhatsApp']]; foreach($socials as [$sk,$icon,$label]): $su=trim((string)($s['social_'.$sk]??'')); if($su!==''): ?><a href="<?=e($su)?>" target="_blank" rel="noopener" aria-label="<?=e($label)?>"<?php if($editMode): ?> data-cms-social="<?=e($sk)?>" title="Edit <?=e($label)?>"<?php endif; ?>><?=e($icon)?></a><?php endif; ?><?php endforeach; ?></div><strong<?=ck($editMode,'site_name')?>><?=$val('site_name','PT Ara DigiTalent')?></strong><small<?=ck($editMode,'footer_text')?>><?=$val('footer_text','PT Ara DigiTalent')?></small></footer>
-<button type="button" id="araBackToTop" class="ara-back-to-top" aria-label="Kembali ke atas" title="Kembali ke atas">↑</button>
+</main><footer class="ara-footer"><div class="socials"><?php $socials=[['facebook','f','Facebook'],['instagram','ig','Instagram'],['x','x','X / Twitter'],['linkedin','in','LinkedIn'],['whatsapp','wa','WhatsApp']]; foreach($socials as [$sk,$icon,$label]): $su=ara_safe_url((string)($s['social_'.$sk]??''),''); if($su!==''): ?><a href="<?=e($su)?>" target="_blank" rel="noopener" aria-label="<?=e($label)?>"<?php if($editMode): ?> data-cms-social="<?=e($sk)?>" title="Edit <?=e($label)?>"<?php endif; ?>><?=e($icon)?></a><?php endif; ?><?php endforeach; ?></div><strong<?=ck($editMode,'site_name')?>><?=$val('site_name','PT Ara DigiTalent')?></strong><small<?=ck($editMode,'footer_text')?>><?=$val('footer_text','PT Ara DigiTalent')?></small></footer>
+<button type="button" id="araBackToTop" class="ara-back-to-top" aria-label="Kembali ke atas" title="Kembali ke atas">➜</button>
 </div>
 <?php if($editMode): ?><script>window.ARA_CSRF=<?=json_encode($GLOBALS['__ara_csrf']??'')?>;window.ARA_AJAX_URL='ajax.php';</script><script src="assets/canvas-editor.js?v=<?=filemtime(__DIR__.'/../admin/assets/canvas-editor.js')?>"></script><script src="../public/assets/js/hero-slider.js?v=<?=ara_asset_v(__DIR__.'/../public/assets/js/hero-slider.js')?>" defer></script><script src="../public/assets/js/mobile-nav.js?v=<?=ara_asset_v(__DIR__.'/../public/assets/js/mobile-nav.js')?>" defer></script>
 <?php else: ?><script src="<?=$preview?'../public/assets/js/back-to-top.js':'/assets/js/back-to-top.js'?>?v=<?=ara_asset_v(__DIR__.'/../public/assets/js/back-to-top.js')?>" defer></script><script src="<?=$preview?'../public/assets/js/hero-slider.js':'/assets/js/hero-slider.js'?>?v=<?=ara_asset_v(__DIR__.'/../public/assets/js/hero-slider.js')?>" defer></script><script src="<?=$preview?'../public/assets/js/mobile-nav.js':'/assets/js/mobile-nav.js'?>?v=<?=ara_asset_v(__DIR__.'/../public/assets/js/mobile-nav.js')?>" defer></script><?php endif; ?>

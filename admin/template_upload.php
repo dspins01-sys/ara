@@ -38,6 +38,7 @@ try {
     $out=[];
     foreach($allowed as $k) if(array_key_exists($k,$b)) $out[$k]=$b[$k];
     foreach(['title','subtitle','button_text','button_url','bg_color','text_color','custom_class','image','image2','image3'] as $k) $out[$k]=trim((string)($out[$k]??''));
+    $out['button_url']=ara_safe_url($out['button_url'],'');
     $out['body']=sanitize_rich_html((string)($out['body']??'<p>Write something great here…</p>'));
     $out['layout']=in_array(($out['layout']??'image-right'),['image-right','image-left','center','full'],true)?$out['layout']:'image-right';
     $out['block_type']=in_array(($out['block_type']??'feature'),['hero','feature','text','image-text','gallery','quote','cta','spacer','about','contact'],true)?$out['block_type']:'feature';
@@ -103,6 +104,9 @@ try {
   if(isset($settings['hero_layout']) && !in_array($settings['hero_layout'],['stacked','split','overlay','grid','slider'],true)) unset($settings['hero_layout']);
   if(isset($settings['site_theme']) && !in_array($settings['site_theme'],['default','minimal','bold'],true)) unset($settings['site_theme']);
   if(isset($settings['accent_color']) && !preg_match('/^#[0-9a-fA-F]{3,8}$/',$settings['accent_color'])) unset($settings['accent_color']);
+  foreach(['hero_button_url','social_facebook','social_instagram','social_x','social_linkedin','social_whatsapp'] as $uk){
+    if(isset($settings[$uk])) $settings[$uk]=ara_safe_url($settings[$uk],'');
+  }
 
   $cssDir=__DIR__.'/../public/assets/css/templates';
   $imgRoot=__DIR__.'/../public/assets/images/templates';

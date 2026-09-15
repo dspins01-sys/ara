@@ -190,6 +190,15 @@ body.ce-resizing-logo,body.ce-resizing-logo *{cursor:nwse-resize!important}
 body.ce-has-preview-bar{padding-bottom:64px}
 @media(max-width:640px){.ce-preview-bar{flex-wrap:wrap;bottom:10px}.ce-preview-bar-text{flex:1 1 100%}}
 @media(max-width:700px){.ce-template-grid{grid-template-columns:1fr}.ce-menu-row{flex-wrap:wrap}.ce-menu-row .ce-menu-label,.ce-menu-row .ce-menu-url{flex-basis:100%}}
+/* V20.9.4.2: Header/Slider/Template actions exist in the desktop row and in
+   the mobile More menu. Keep the More copies hidden on desktop so they do
+   not render as duplicate toolbar buttons; mobile shows them through More. */
+.ce-more-menu > #ceHeaderMoreBtn,
+.ce-more-menu > #ceSliderMoreBtn,
+.ce-more-menu > #ceTemplateMoreBtn{display:none}
+.ce-more-menu > #ceSettingsBtn,
+.ce-more-menu > #ceViewSite{display:flex}
+
 @media(max-width:800px){
   .ce-topbar{
     height:auto;min-height:116px;padding:8px 10px;gap:7px;
@@ -207,6 +216,11 @@ body.ce-has-preview-bar{padding-bottom:64px}
   .ce-more-toggle{display:inline-flex;height:34px;padding:7px 10px}
   .ce-more-menu{display:none;position:absolute;right:0;top:40px;width:min(220px,calc(100vw - 20px));padding:8px;background:#0d1425;border:1px solid #2e3a5c;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.35);box-sizing:border-box}
   .ce-more-menu.open{display:grid;gap:6px}
+  .ce-more-menu.open > #ceHeaderMoreBtn,
+  .ce-more-menu.open > #ceSliderMoreBtn,
+  .ce-more-menu.open > #ceTemplateMoreBtn,
+  .ce-more-menu.open > #ceSettingsBtn,
+  .ce-more-menu.open > #ceViewSite{display:flex}
   .ce-more-menu .ce-btn{width:100%;justify-content:flex-start;box-sizing:border-box}
   .ara-edit-mode{padding-top:124px}
   .ara-edit-mode .ara-header{top:124px}

@@ -223,9 +223,9 @@
       '<div class="ce-more-wrap">'+
       '<button type="button" class="ce-btn ce-more-toggle" id="ceMoreBtn" aria-expanded="false">⚙ More</button>'+
       '<div class="ce-more-menu" id="ceMoreMenu">'+
-      '<button type="button" class="ce-btn" id="ceHeaderTopBtn">⚙ Header</button>'+
-      '<button type="button" class="ce-btn" id="ceSliderBtn">🖼 Slider</button>'+
-      '<button type="button" class="ce-btn" id="ceTemplateBtn">🎨 Template</button>'+
+      '<button type="button" class="ce-btn" id="ceHeaderMoreBtn">⚙ Header</button>'+
+      '<button type="button" class="ce-btn" id="ceSliderMoreBtn">🖼 Slider</button>'+
+      '<button type="button" class="ce-btn" id="ceTemplateMoreBtn">🎨 Template</button>'+
       '<button type="button" class="ce-btn" id="ceSettingsBtn">⚙ Site Settings</button>'+
       '<a class="ce-btn" id="ceViewSite" href="../public/index.php" target="_blank" rel="noopener">Lihat Situs ↗</a>'+
       '</div></div>';
@@ -233,10 +233,17 @@
     statusEl=bar.querySelector('#ceStatus');
     bar.querySelector('#ceAddTop').onclick=function(){ selectBlock(null,false); openBlockLibrary(null); };
     bar.querySelector('#ceMenuBtn').onclick=function(){ openMenuModal(); };
-    bar.querySelector('#ceHeaderTopBtn').onclick=function(){ if(headerModal) headerModal.classList.add('open'); };
-    bar.querySelector('#ceSliderBtn').onclick=function(){ openSliderModal(); };
-    bar.querySelector('#ceTemplateBtn').onclick=function(){ templateModal.classList.add('open'); };
-    bar.querySelector('#ceSettingsBtn').onclick=function(){ settingsModal.classList.add('open'); };
+    function openHeaderSettings(){ if(headerModal) headerModal.classList.add('open'); }
+    function openSliderSettings(){ openSliderModal(); }
+    function openTemplateSettings(){ templateModal.classList.add('open'); }
+    function openSiteSettings(){ settingsModal.classList.add('open'); }
+    bar.querySelector('#ceHeaderTopBtn').onclick=openHeaderSettings;
+    bar.querySelector('#ceSliderBtn').onclick=openSliderSettings;
+    bar.querySelector('#ceTemplateBtn').onclick=openTemplateSettings;
+    bar.querySelector('#ceHeaderMoreBtn').onclick=openHeaderSettings;
+    bar.querySelector('#ceSliderMoreBtn').onclick=openSliderSettings;
+    bar.querySelector('#ceTemplateMoreBtn').onclick=openTemplateSettings;
+    bar.querySelector('#ceSettingsBtn').onclick=openSiteSettings;
     var moreBtn=bar.querySelector('#ceMoreBtn'), moreMenu=bar.querySelector('#ceMoreMenu');
     if(moreBtn && moreMenu){
       moreBtn.onclick=function(e){
@@ -272,7 +279,7 @@
 
   /* ---------------- editable text ---------------- */
   function setupEditableText(scope){
-    (scope||document).querySelectorAll('[data-cms-key]').forEach(function(el){
+    queryAllIncludingSelf(scope,'[data-cms-key]').forEach(function(el){
       if(el.dataset.ceBound) return; el.dataset.ceBound='1';
       var isHtml=el.dataset.cmsHtml==='1';
       el.setAttribute('contenteditable','true');
@@ -493,7 +500,7 @@
     setTimeout(function(){ input.focus(); input.select(); },10);
   }
   function setupHrefEdit(scope){
-    (scope||document).querySelectorAll('[data-cms-href-key]').forEach(function(el){
+    queryAllIncludingSelf(scope,'[data-cms-href-key]').forEach(function(el){
       if(el.dataset.ceHrefBound) return; el.dataset.ceHrefBound='1';
       var btn=document.createElement('button');
       btn.type='button'; btn.className='ce-href-btn'; btn.textContent='🔗'; btn.title='Ubah / hapus URL tombol'; btn.contentEditable='false';
@@ -505,7 +512,7 @@
 
   /* ---------------- images ---------------- */
   function setupImages(scope){
-    (scope||document).querySelectorAll('[data-cms-image]').forEach(function(el){
+    queryAllIncludingSelf(scope,'[data-cms-image]').forEach(function(el){
       if(el.dataset.ceBound) return; el.dataset.ceBound='1';
       el.addEventListener('click',function(){ openMediaModal(el.dataset.cmsImage,el); });
     });
@@ -737,16 +744,25 @@
   window.addEventListener('scroll',updateBlockIndicator,{passive:true});
   window.addEventListener('resize',updateBlockIndicator,{passive:true});
 
+
+  function queryAllIncludingSelf(scope,selector){
+    var root=scope||document;
+    var out=[];
+    if(root.nodeType===1 && root.matches && root.matches(selector)) out.push(root);
+    var found=root.querySelectorAll ? root.querySelectorAll(selector) : [];
+    for(var i=0;i<found.length;i++) out.push(found[i]);
+    return out;
+  }
   /* ---------------- block toolbar / layout / reorder ---------------- */
   function cleanupBlockToolbars(scope){
-    (scope||document).querySelectorAll('[data-block-id]').forEach(function(sec){
+    queryAllIncludingSelf(scope,'[data-block-id]').forEach(function(sec){
       var bars=sec.querySelectorAll(':scope > .ce-block-toolbar');
       for(var i=1;i<bars.length;i++) bars[i].remove();
     });
   }
   function setupBlocks(scope){
     cleanupBlockToolbars(scope);
-    (scope||document).querySelectorAll('[data-block-id]').forEach(function(sec){
+    queryAllIncludingSelf(scope,'[data-block-id]').forEach(function(sec){
       if(sec.dataset.ceBlockBound){
         if(!sec.querySelector(':scope > .ce-block-toolbar')) buildBlockToolbar(sec);
         return;

@@ -142,7 +142,7 @@ function get_nav_menu(array $s): array {
     $out=[];
     foreach($items as $it){
         if(!is_array($it) || !isset($it['label'])) continue;
-        $type=(string)($it['target_type']??''); $sid=(int)($it['section_id']??0); $url=(string)($it['url']??'#');
+        $type=(string)($it['target_type']??''); $sid=(int)($it['section_id']??0); $url=ara_safe_url((string)($it['url']??'#'),'#');
         // Backward compatibility: convert legacy #anchor menu URLs into real section targets when possible.
         if($type==='' && str_starts_with($url,'#')){
             $needle=ltrim($url,'#');
@@ -391,7 +391,8 @@ function restore_revision_layout(int $id): bool {
     $snap=json_decode((string)$raw,true); if(!is_array($snap)) return false;
     $pdo=Database::pdo(); $pdo->beginTransaction();
     try {
-        $allowedSettings=['template_css','template_name','site_theme','hero_layout','accent_color','typography','logo_width'];
+        
+        $allowedSettings=['template_css','template_name','site_theme','hero_layout','accent_color','typography','logo_width','logo_height','header_background','header_height_mode','header_height','header_padding_y'];
         foreach($allowedSettings as $k){ if(array_key_exists($k,$snap['settings']??[])) save_setting($k,(string)$snap['settings'][$k]); }
         $byKey=[]; foreach(($snap['sections']??[]) as $r){ if(is_array($r) && !empty($r['section_key'])) $byKey[(string)$r['section_key']]=$r; }
         $current=get_all_sections();
@@ -399,8 +400,8 @@ function restore_revision_layout(int $id): bool {
         foreach($current as $r){
             $key=(string)$r['section_key']; $old=$byKey[$key]??null;
             if($old){
-                $st2=$pdo->prepare('UPDATE sections SET layout=?,bg_color=?,text_color=?,padding_top=?,padding_bottom=?,max_width=?,custom_class=?,is_active=? WHERE id=?');
-                $st2->execute([(string)($old['layout']??'image-right'),(string)($old['bg_color']??''),(string)($old['text_color']??''),(int)($old['padding_top']??108),(int)($old['padding_bottom']??108),(int)($old['max_width']??900),(string)($old['custom_class']??''),(int)($old['is_active']??1),(int)$r['id']]);
+                $st2=$pdo->prepare('UPDATE sections SET layout=?,bg_color=?,text_color=?,padding_top=?,padding_bottom=?,max_width=?,custom_class=?,typography=?,is_active=? WHERE id=?');
+                $st2->execute([(string)($old['layout']??'image-right'),(string)($old['bg_color']??''),(string)($old['text_color']??''),(int)($old['padding_top']??108),(int)($old['padding_bottom']??108),(int)($old['max_width']??900),(string)($old['custom_class']??''),(string)($old['typography']??'{}'),(int)($old['is_active']??1),(int)$r['id']]);
                 $order[]=(int)$r['id'];
             }
         }
@@ -466,6 +467,7 @@ function section_update_field(int $id,string $field,$value): bool {
         case 'int': $value=max(0,(int)$value); break;
         case 'width': $value=min(1800,max(320,(int)$value)); break;
         case 'bool': $value=(int)((bool)$value); break;
+        case 'url': $value=ara_safe_url((string)$value,''); break;
         case 'anchor': $value=preg_replace('/[^a-z0-9_-]/i','-',strtolower(trim((string)$value))); $value=trim($value,'-'); if($value==='') $value='block-'.$id; break;
         case 'class': $value=preg_replace('/[^a-zA-Z0-9_ -]/','',(string)$value); break;
         case 'layout': $value=in_array($value,['image-right','image-left','center','full'],true)?$value:'image-right'; break;
