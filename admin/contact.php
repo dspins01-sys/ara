@@ -12,7 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $autoSubject = trim((string)($_POST['contact_autoreply_subject'] ?? ''));
     $autoBody = trim((string)($_POST['contact_autoreply_body'] ?? ''));
 
-    if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if ($email === '') {
+        flash('✕ Email Penerima Contact Form wajib diisi.');
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         flash('✕ Email penerima tidak valid.');
     } elseif ($autoEnabled === '1' && $autoSubject === '') {
         flash('✕ Subject auto-reply wajib diisi jika auto-reply aktif.');
@@ -20,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         flash('✕ Isi auto-reply wajib diisi jika auto-reply aktif.');
     } else {
         save_setting('contact_email', $email);
+        save_setting('contact_fallback_email', '');
         save_setting('contact_autoreply_enabled', $autoEnabled);
         save_setting('contact_autoreply_subject', $autoSubject);
         save_setting('contact_autoreply_body', $autoBody);
@@ -32,8 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 require_once __DIR__.'/_header.php';
 
 $contactEmail = setting('contact_email', '');
-$smtp = smtp_settings();
-$fallback = trim((string)($smtp['from_email'] ?? ''));
 $autoEnabled = setting('contact_autoreply_enabled', '0') === '1';
 $autoSubject = setting('contact_autoreply_subject', 'Terima kasih, pesan Anda sudah kami terima');
 $autoBody = setting('contact_autoreply_body', 'Halo {name},<br><br>Terima kasih sudah menghubungi {site_name}. Pesan Anda sudah kami terima dan tim kami akan segera menghubungi Anda.<br><br>Salam,<br>{site_name}');
@@ -52,7 +53,7 @@ $autoBody = setting('contact_autoreply_body', 'Halo {name},<br><br>Terima kasih 
             <input type="email" name="contact_email" value="<?=e($contactEmail)?>" placeholder="admin@domain.com">
         </label>
         <p class="smtp-help">Pesan pengunjung akan dikirim ke email ini melalui SMTP yang sudah dikonfigurasi.</p>
-        <p class="smtp-help">Jika dikosongkan, tujuan otomatis memakai From Email SMTP: <b><?=e($fallback ?: 'belum diatur')?></b></p>
+        <p class="smtp-help">Email ini <b>wajib diisi</b> dan menjadi satu-satunya tujuan notifikasi Contact Form.</p>
     </div>
 
     <div class="card" style="margin-top:20px;padding:18px">

@@ -22,15 +22,18 @@ if (!$name || !filter_var($email, FILTER_VALIDATE_EMAIL) || !$message) {
     exit('Data tidak valid.');
 }
 
+// Contact recipient is explicitly configured in Contact Form settings.
+$to = trim(setting('contact_email', ''));
+if ($to === '' || !filter_var($to, FILTER_VALIDATE_EMAIL)) {
+    error_log('ARA contact submission rejected: Contact Form recipient is not configured or invalid.');
+    start_secure_session();
+    $_SESSION['contact_flash'] = '✕ Contact Form belum dikonfigurasi. Email penerima wajib diatur oleh administrator.';
+    header('Location: ' . ara_app_base_path() . '/?contact=sent#contact');
+    exit;
+}
+
 $st = Database::pdo()->prepare('INSERT INTO messages(name,email,message) VALUES(?,?,?)');
 $st->execute([$name, $email, $message]);
-
-// contact_email is a site setting so the owner can choose where inquiries arrive.
-// If it is empty, fall back to the configured SMTP sender for backward compatibility.
-$to = trim(setting('contact_email', ''));
-if (!$to) {
-    $to = trim((string)(smtp_settings()['from_email'] ?? ''));
-}
 
 $smtp = smtp_settings();
 $fromEmail = trim((string)($smtp['from_email'] ?? ''));
