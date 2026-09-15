@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__.'/_header.php';
+require_once __DIR__.'/../app/Security.php';
+require_once __DIR__.'/../app/Content.php';
+require_once __DIR__.'/../app/Mailer.php';
+admin_required();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verify_csrf();
@@ -25,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: contact.php');
     exit;
 }
+
+require_once __DIR__.'/_header.php';
 
 $contactEmail = setting('contact_email', '');
 $smtp = smtp_settings();
