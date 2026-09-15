@@ -42,3 +42,4 @@
 @media(max-width:480px){
   .ara-header nav{left:14px;right:14px}
 }
+.contact-success{margin:0 0 20px;padding:13px 48px 13px 16px;border:1px solid rgba(90,190,120,.55);background:rgba(70,160,95,.14);color:#d9ffe4;border-radius:6px;font-size:14px;position:relative}.contact-success-close{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:28px;height:28px;display:grid;place-items:center;border-radius:5px;color:#d9ffe4;text-decoration:none;font-size:22px;line-height:1}.contact-success-close:hover{background:rgba(255,255,255,.12);color:#fff}

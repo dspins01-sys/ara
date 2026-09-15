@@ -4,6 +4,9 @@ header('Pragma: no-cache');
 header('Expires: 0');
 
 require_once __DIR__.'/../app/Security.php';
+// Start the session before render_site() can emit any HTML.
+// The live contact success banner reads its flash message from this session.
+start_secure_session();
 ara_require_install();
 require_once __DIR__.'/../app/Content.php';
 require_once __DIR__.'/../app/site-template.php';

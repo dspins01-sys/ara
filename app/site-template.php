@@ -166,7 +166,20 @@ function render_block(array $sec,bool $preview,bool $editMode=false): string {
     echo '<div class="contact-inner"><span class="eyebrow light"'.ck($editMode,"section.$id.subtitle").'>'.e($sec['subtitle']??'HUBUNGI KAMI').'</span>';
     echo '<h2'.ck($editMode,"section.$id.title").'>'.e($sec['title']??'Mari Bangun Sesuatu Yang Hebat').'</h2>';
     echo '<div class="contact-copy"'.ck($editMode,"section.$id.body",true).'>'.($sec['body']??'').'</div>';
-    echo '<form action="'.($preview?'#':'/contact.php').'" method="post" onsubmit="return '.($preview?'false':'true').'">';
+    if(!$editMode && !$preview && isset($_GET['contact'])){
+      start_secure_session();
+      $contactState=(string)$_GET['contact'];
+      if($contactState==='dismiss'){
+        unset($_SESSION['contact_flash']);
+      } elseif($contactState==='sent'){
+        $contactFlash=(string)($_SESSION['contact_flash']??'');
+        if($contactFlash!==''){
+          $dismissUrl=ara_app_base_path().'/?contact=dismiss#contact';
+          echo '<div class="contact-success" role="status"><span>'.e($contactFlash).'</span><a class="contact-success-close" href="'.e($dismissUrl).'" aria-label="Tutup notifikasi" title="Tutup">×</a></div>';
+        }
+      }
+    }
+    echo '<form action="'.($preview?'#':ara_app_base_path().'/contact.php').'" method="post" onsubmit="return '.($preview?'false':'true').'">';
     echo '<div class="name-grid"><input name="name" placeholder="Nama" required><input name="last_name" placeholder="Nama belakang"></div>';
     echo '<input type="email" name="email" placeholder="Surel Anda*" required><textarea name="message" placeholder="Pesan*" required></textarea>';
     echo '<button type="submit"'.ck($editMode,"section.$id.button_text").'>'.e($sec['button_text']??'Kirim').'</button></form></div>';
