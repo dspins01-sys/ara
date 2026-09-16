@@ -5,6 +5,7 @@ declare(strict_types=1);
 require_once __DIR__.'/../app/Security.php';
 require_once __DIR__.'/../app/Content.php';
 require_once __DIR__.'/../app/Mailer.php';
+require_once __DIR__.'/../app/WhatsApp.php';
 
 ara_require_install();
 
@@ -53,6 +54,18 @@ if ($to && filter_var($to, FILTER_VALIDATE_EMAIL)) {
     );
     if (!$sent) {
         error_log('ARA contact notification failed: ' . $sendMessage);
+    }
+}
+
+// Optional WhatsApp notification. WhatsApp is a separate service accessed only via HTTP API.
+$wa = whatsapp_settings();
+if ($wa['enabled']) {
+    try {
+        $waMessage = whatsapp_render_template($wa['template'], $name, $email, $message, $siteName);
+        whatsapp_send($wa['admin_phone'], $waMessage, $wa);
+    } catch (Throwable $waError) {
+        // The contact is already stored and email handling is independent from WhatsApp.
+        error_log('ARA WhatsApp notification failed: ' . $waError->getMessage());
     }
 }
 
